@@ -7,7 +7,7 @@ import { DateTime } from 'luxon'
 import { getRunTimeEnv } from '#@/constants/env.ts'
 import { platformMap, type PlatformName } from '#@/constants/platform.ts'
 import { libraryModeEnum, romTable, statusEnum } from '#@/databases/schema.ts'
-import { getFilePartialDigest } from '#@/utils/server/file.ts'
+import { getFilePartialDigest, getSafeFileName } from '#@/utils/server/file.ts'
 import { msleuth } from '#@/utils/server/msleuth.ts'
 import { countRoms } from './count-roms.ts'
 
@@ -110,17 +110,17 @@ export async function createRom({ file, md5, platform }: { file: File; md5?: str
 
   const { launchbox, libretro } = gameInfo
 
-  // Store file
+  // Store the file under its original name. The name is scoped to the uploader because, unlike a
+  // content digest, it does not identify the file's contents: two accounts can upload different
+  // ROMs that share a name, and re-uploading a name must replace whatever was stored under it.
   const digest = await getFilePartialDigest(file)
-  const fileId = path.join('roms', platform, `${digest}${ext}`)
-  const fileExists = await storage.head(fileId)
-  if (!fileExists) {
-    await storage.put(fileId, file)
-  }
+  const fileName = getSafeFileName(file.name, `${digest}${ext}`)
+  const fileId = path.join('roms', currentUser.id, platform, fileName)
+  await storage.put(fileId, file)
 
   const romData: InferInsertModel<typeof romTable> = {
     fileId,
-    fileName: file.name,
+    fileName,
     gameDeveloper: launchbox?.developer || libretro?.developer,
     gameGenres: getGenres({ launchbox, libretro }),
     gameName: launchbox?.name || libretro?.name,
@@ -144,7 +144,7 @@ export async function createRom({ file, md5, platform }: { file: File; md5?: str
         eq(romTable.userId, currentUser.id),
         eq(romTable.platform, platform),
         eq(romTable.status, statusEnum.normal),
-        eq(romTable.fileName, file.name),
+        eq(romTable.fileName, fileName),
       ),
     )
     .limit(1)
