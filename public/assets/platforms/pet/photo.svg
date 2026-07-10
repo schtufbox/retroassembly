@@ -1,0 +1,21 @@
+<svg viewBox="0 0 400 220" width="400" height="220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="commodore pet computer">
+  <g transform="translate(60 14)">
+    <path d="M10 120 L20 14 Q21 6 32 6 L196 6 Q206 6 206 16 L206 120 Z" fill="#C9C9C4"/>
+    <rect x="34" y="20" width="150" height="82" rx="4" fill="#0E1A0E"/>
+    <g fill="#66D36E" opacity="0.85">
+      <rect x="44" y="32" width="70" height="5"/>
+      <rect x="44" y="44" width="110" height="5"/>
+      <rect x="44" y="56" width="52" height="5"/>
+      <rect x="44" y="68" width="8" height="7"/>
+    </g>
+    <path d="M0 120 L280 120 L280 168 Q280 178 268 178 L12 178 Q0 178 0 166 Z" fill="#B0B0AA"/>
+    <rect x="212" y="126" width="62" height="44" rx="3" fill="#C9C9C4"/>
+    <rect x="220" y="136" width="46" height="16" rx="2" fill="#6E6E68"/>
+    <g fill="#6E6E68">
+      <rect x="14" y="130" width="182" height="8" rx="2"/>
+      <rect x="14" y="142" width="182" height="8" rx="2"/>
+      <rect x="14" y="154" width="182" height="8" rx="2"/>
+    </g>
+    <text x="14" y="176" fill="#4A4A44" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="600" letter-spacing="1">commodore pet</text>
+  </g>
+</svg>

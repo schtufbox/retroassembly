@@ -1,0 +1,9 @@
+<svg viewBox="0 0 100 100" width="100" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="commodore vic-20 disk">
+  <rect x="8" y="8" width="84" height="84" rx="3" fill="#2E6E7E"/>
+  <rect x="8" y="8" width="84" height="84" rx="3" fill="none" stroke="#BFEFF7" stroke-width="2"/>
+  <rect x="30" y="8" width="40" height="30" rx="1" fill="#BFEFF7"/>
+  <rect x="42" y="12" width="16" height="22" rx="1" fill="#2E6E7E"/>
+  <circle cx="50" cy="58" r="16" fill="#2E6E7E" stroke="#BFEFF7" stroke-width="1.5"/>
+  <circle cx="50" cy="58" r="5" fill="#BFEFF7"/>
+  <text x="50" y="88" fill="#BFEFF7" font-family="'Courier New', Courier, monospace" font-size="9" font-weight="700" text-anchor="middle">VIC</text>
+</svg>
