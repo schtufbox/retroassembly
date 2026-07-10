@@ -114,8 +114,10 @@ const basePlatformMap = {
     libretroName: 'Atari - Lynx',
   },
   // The VICE cores embed the KERNAL, BASIC and character ROMs, so no bioses entry is needed.
+  // vice_x64sc is the accuracy-focused C64 core, vice_x64 trades accuracy for speed and
+  // vice_xscpu64 emulates a C64 expanded with a SuperCPU accelerator.
   c64: {
-    cores: ['vice_x64sc'],
+    cores: ['vice_x64sc', 'vice_x64', 'vice_xscpu64'],
     displayNameI18nKey: 'platform.c64',
     fileExtensions: ['.d64', '.d71', '.d81', '.g64', '.x64', '.t64', '.tap', '.prg', '.p00', '.crt', '.zip'],
     info: {
@@ -125,6 +127,18 @@ const basePlatformMap = {
       releaseDate: '1982-08-01T00:00:00-07:00',
     },
     libretroName: 'Commodore - 64',
+  },
+  c128: {
+    cores: ['vice_x128'],
+    displayNameI18nKey: 'platform.c128',
+    fileExtensions: ['.d64', '.d71', '.d81', '.g64', '.x64', '.t64', '.tap', '.prg', '.p00', '.crt', '.zip'],
+    info: {
+      developer: 'Commodore International',
+      manufacturer: 'Commodore International',
+      notesI18nKey: 'platform.c128Note',
+      releaseDate: '1985-01-01T00:00:00-08:00',
+    },
+    libretroName: 'Commodore - 128',
   },
   channelf: {
     bioses: [
@@ -355,6 +369,31 @@ const basePlatformMap = {
     },
     libretroName: 'NEC - PC Engine - TurboGrafx 16',
   },
+  pet: {
+    cores: ['vice_xpet'],
+    displayNameI18nKey: 'platform.pet',
+    fileExtensions: ['.d64', '.d80', '.d82', '.t64', '.tap', '.prg', '.p00', '.zip'],
+    info: {
+      developer: 'Commodore International',
+      manufacturer: 'Commodore International',
+      notesI18nKey: 'platform.petNote',
+      releaseDate: '1977-10-01T00:00:00-07:00',
+    },
+    libretroName: 'Commodore - PET',
+  },
+  // The Plus/4 and the Commodore 16 share the same TED-based hardware, so one core covers both.
+  plus4: {
+    cores: ['vice_xplus4'],
+    displayNameI18nKey: 'platform.plus4',
+    fileExtensions: ['.d64', '.d81', '.g64', '.x64', '.t64', '.tap', '.prg', '.p00', '.zip'],
+    info: {
+      developer: 'Commodore International',
+      manufacturer: 'Commodore International',
+      notesI18nKey: 'platform.plus4Note',
+      releaseDate: '1984-06-01T00:00:00-07:00',
+    },
+    libretroName: 'Commodore - Plus-4',
+  },
   psx: {
     bioses: [
       { md5: '6e3735ff4c7dc899ee98981385f6f3d0', name: 'scph101.bin' },
@@ -449,6 +488,18 @@ const basePlatformMap = {
       releaseDate: '1995-07-21T00:00:00-07:00',
     },
     libretroName: 'Nintendo - Virtual Boy',
+  },
+  vic20: {
+    cores: ['vice_xvic'],
+    displayNameI18nKey: 'platform.vic20',
+    fileExtensions: ['.d64', '.g64', '.x64', '.t64', '.tap', '.prg', '.p00', '.20', '.40', '.60', '.a0', '.b0', '.zip'],
+    info: {
+      developer: 'Commodore International',
+      manufacturer: 'Commodore International',
+      notesI18nKey: 'platform.vic20Note',
+      releaseDate: '1981-01-01T00:00:00-08:00',
+    },
+    libretroName: 'Commodore - VIC-20',
   },
   videopac: {
     bioses: [{ name: 'o2rom.bin', required: true }],
