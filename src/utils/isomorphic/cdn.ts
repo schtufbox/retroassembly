@@ -9,7 +9,11 @@ const repositoryVersions = {
   'libretro-thumbnails/Bandai_-_WonderSwan': 'aa3cfe8a087b33ae0864f22745f3f49827a3583e', // https://github.com/libretro-thumbnails/Bandai_-_WonderSwan/commits
   'libretro-thumbnails/Bandai_-_WonderSwan_Color': '4937a9a5c69a9fde504fe6593916ab606784af9c', // https://github.com/libretro-thumbnails/Bandai_-_WonderSwan_Color/commits
   'libretro-thumbnails/Coleco_-_ColecoVision': '17a09fab3eef20022e5f19022c7aa4dab5cef163', // https://github.com/libretro-thumbnails/Coleco_-_ColecoVision/commits
+  // There is no libretro-thumbnails repository for the Commodore 128; its covers fall back to the platform icon.
   'libretro-thumbnails/Commodore_-_64': '11f4faab8f15f953fe734e4d2f8d04a27475b6d1', // https://github.com/libretro-thumbnails/Commodore_-_64/commits
+  'libretro-thumbnails/Commodore_-_PET': 'f2f9f56d983836c611ca43f591ee3fc2f7474eb3', // https://github.com/libretro-thumbnails/Commodore_-_PET/commits
+  'libretro-thumbnails/Commodore_-_Plus-4': '655a9d6ec6be6c3f7a06e5fc2dfa024b8165a9dd', // https://github.com/libretro-thumbnails/Commodore_-_Plus-4/commits
+  'libretro-thumbnails/Commodore_-_VIC-20': 'c7471546be70d211ba0fbad0122457bef2633fe3', // https://github.com/libretro-thumbnails/Commodore_-_VIC-20/commits
   'libretro-thumbnails/Fairchild_-_Channel_F': 'f4463eafc549fe8dd371becc107a153f9d5e9b53', // https://github.com/libretro-thumbnails/Fairchild_-_Channel_F/commits
   'libretro-thumbnails/FBNeo_-_Arcade_Games': '7a4f51c8c1bb5cc469aa32acf7511f76a75f62ac', // https://github.com/libretro-thumbnails/FBNeo_-_Arcade_Games/commits
   'libretro-thumbnails/Handheld_Electronic_Game': 'a717495b41498c469ff4579797a6bf4e76fb766a', // https://github.com/libretro-thumbnails/Handheld_Electronic_Game/commits
