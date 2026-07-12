@@ -34,6 +34,7 @@ RetroAssembly is the personal retro game collection cabinet in your browser.
 
 - [x] Relive memories from numerous retro gaming systems in the browser. NES, SNES, Genesis, GameBoy, Arcade, Commodore 64... See [Supported Platforms](#supported-platforms) below.
 - [x] See your game collection displayed with auto-detected beautiful box arts and covers.
+- [x] Bulk-import an existing collection by dropping ROM files onto the storage volume and clicking Scan, instead of uploading one by one.
 - [x] Save and synchronize your game at any point and resume later.
 - [x] Made a mistake? Some emulators allow you to rewind gameplay.
 - [x] Browse through platforms and your game library with an intuitive interface with [spatial navigation](https://en.wikipedia.org/wiki/Spatial_navigation), which means you can just use a keyboard or a gamepad to navigate between games.
@@ -94,7 +95,9 @@ services:
     restart: unless-stopped
 ```
 
-The `/app/data` volume holds the SQLite database and your uploaded ROM files, so keep it if you want your library to survive a container rebuild.
+The `/app/data` volume holds the SQLite database and your ROM library, so keep it if you want your library to survive a container rebuild. ROM files live under `/app/data/roms/<platform>/`, one folder per platform (`nes`, `snes`, `c64`, ...) - the platform's key is the same slug shown in its URL when browsing the library, e.g. `/library/platform/nes`. If you already have a ROM collection organized this way, drop it straight into that folder on the host and click **Scan** in the app to import it, instead of uploading everything through the browser.
+
+Only the first account you register (the "super user") can upload or scan ROMs. Add further accounts from **Settings → General → Accounts** with **Shared Library** checked to give family or friends read-only access to the same collection - they can play and save progress, but not add, delete, or edit ROMs.
 
 Images are published on tag pushes. `latest` always points at the most recent release tag; an `edge` tag is published by manually dispatching the workflow. Upstream's images remain available on [Docker Hub](https://hub.docker.com/r/arianrhodsandlot/retroassembly#quick-start).
 
@@ -147,7 +150,9 @@ The Commodore machines are home computers rather than consoles, and are driven b
 
 ## Differences From Upstream
 
-- **Uploaded ROMs keep their original filenames.** Upstream stores each upload under a content hash, at `roms/<platform>/<digest><ext>`, keeping the original name only in the database. Here they are stored at `roms/<userId>/<platform>/<filename>`, so the files on disk are recognisable. Existing ROMs uploaded before this change keep working and need no migration. Because a filename does not identify a file's contents the way a hash does, the path is scoped per user, and identical ROMs are no longer deduplicated across accounts.
+- **Uploaded ROMs keep their original filenames, in one shared folder.** Upstream stores each upload under a content hash, at `roms/<platform>/<digest><ext>`, keeping the original name only in the database. Here they are stored at `roms/<platform>/<filename>` - readable on disk, and shared by every account rather than split into a folder per user.
+- **Only the super user (the first registered account) may upload or scan.** Since the ROM folder above is now shared rather than per-user, only one account is allowed to write to it - the same "super user" concept the account-management settings already used to decide who could create or delete other accounts. Other accounts can be given read-only access to the same library; see [Self-Host with Docker](#option-2-self-host-with-docker) for how.
+- **A Scan button imports ROMs dropped directly onto the storage volume**, for bulk-loading an existing collection without uploading file by file through the browser. It appears next to Add on the homepage and on every platform page.
 - **Commodore support.** The Commodore 64, 128, VIC-20, Plus/4 (and 16) and PET are supported through the VICE cores. No BIOS files are required; the system ROMs are embedded in the cores.
 - **Images publish to the GitHub Container Registry** instead of Docker Hub. See [Self-Host with Docker](#option-2-self-host-with-docker).
 
