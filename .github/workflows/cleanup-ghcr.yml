@@ -1,0 +1,60 @@
+name: Cleanup GHCR (keep latest only)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  packages: write
+  contents: read
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete all package versions except those tagged latest
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner
+            const package_type = 'container'
+            const package_name = 'retroassembly'
+            const keepTags = new Set(['latest'])
+
+            const versions = await github.paginate(
+              github.rest.packages.getAllPackageVersionsForPackageOwnedByUser,
+              {
+                package_type,
+                package_name,
+                username: owner,
+                per_page: 100,
+                state: 'active',
+              },
+            )
+
+            core.info(`Found ${versions.length} package version(s)`)
+
+            let kept = 0
+            let deleted = 0
+
+            for (const version of versions) {
+              const tags = version.metadata?.container?.tags || []
+              const tagList = tags.join(', ') || '(untagged)'
+              const keep = tags.some((t) => keepTags.has(t))
+
+              if (keep) {
+                core.info(`KEEP  id=${version.id} tags=[${tagList}]`)
+                kept++
+                continue
+              }
+
+              core.info(`DELETE id=${version.id} tags=[${tagList}]`)
+              await github.rest.packages.deletePackageVersionForUser({
+                package_type,
+                package_name,
+                username: owner,
+                package_version_id: version.id,
+              })
+              deleted++
+            }
+
+            core.info(`Done. kept=${kept} deleted=${deleted}`)
