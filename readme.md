@@ -28,16 +28,17 @@
 RetroAssembly is the personal retro game collection cabinet in your browser.
 
 > [!NOTE]
-> This is a fork of [arianrhodsandlot/retroassembly](https://github.com/arianrhodsandlot/retroassembly). See [Differences From Upstream](#differences-from-upstream) for what changed here.
+> This is a fork of [arianrhodsandlot/retroassembly](https://github.com/arianrhodsandlot/retroassembly). See [Differences From Upstream](#differences-from-upstream) for what changed here. Container images are published only for **this** fork at `ghcr.io/schtufbox/retroassembly`.
 
 ## Features
 
-- [x] Relive memories from numerous retro gaming systems in the browser. NES, SNES, Genesis, GameBoy, Arcade, Commodore 64... See [Supported Platforms](#supported-platforms) below.
+- [x] Relive memories from numerous retro gaming systems in the browser. NES, SNES, Genesis, Game Boy, Arcade, Commodore, ZX Spectrum, Amstrad CPC… See [Supported Platforms](#supported-platforms) below.
 - [x] See your game collection displayed with auto-detected beautiful box arts and covers.
 - [x] Bulk-import an existing collection by dropping ROM files onto the storage volume and clicking Scan, instead of uploading one by one.
 - [x] Save and synchronize your game at any point and resume later.
 - [x] Made a mistake? Some emulators allow you to rewind gameplay.
 - [x] Browse through platforms and your game library with an intuitive interface with [spatial navigation](https://en.wikipedia.org/wiki/Spatial_navigation), which means you can just use a keyboard or a gamepad to navigate between games.
+- [x] Full host keyboard passthrough for home-computer systems (Commodore / Spectrum / Amstrad) so you can type at the BASIC prompt.
 - [x] Enhance your gaming experience with beautiful visual effects with retro-style shaders.
 - [x] Play on the go, even without a physical gamepad, using our on-screen virtual controller.
 
@@ -95,9 +96,9 @@ services:
     restart: unless-stopped
 ```
 
-The `/app/data` volume holds the SQLite database and your ROM library, so keep it if you want your library to survive a container rebuild. ROM files live under `/app/data/roms/<platform>/`, one folder per platform (`nes`, `snes`, `c64`, ...) - the platform's key is the same slug shown in its URL when browsing the library, e.g. `/library/platform/nes`. If you already have a ROM collection organized this way, drop it straight into that folder on the host and click **Scan** in the app to import it, instead of uploading everything through the browser.
+The `/app/data` volume holds the SQLite database and your ROM library, so keep it if you want your library to survive a container rebuild. ROM files live under `/app/data/roms/<platform>/`, one folder per platform (`nes`, `snes`, `c64`, …) — the platform's key is the same slug shown in its URL when browsing the library, e.g. `/library/platform/nes`. If you already have a ROM collection organized this way, drop it straight into that folder on the host and click **Scan** in the app to import it, instead of uploading everything through the browser.
 
-Only the first account you register (the "super user") can upload or scan ROMs. Add further accounts from **Settings → General → Accounts** with **Shared Library** checked to give family or friends read-only access to the same collection - they can play and save progress, but not add, delete, or edit ROMs.
+Only the first account you register (the "super user") can upload or scan ROMs. Add further accounts from **Settings → General → Accounts** with **Shared Library** checked to give family or friends read-only access to the same collection — they can play and save progress, but not add, delete, or edit ROMs.
 
 Images are published on tag pushes. `latest` always points at the most recent release tag; an `edge` tag is published by manually dispatching the workflow. Upstream's images remain available on [Docker Hub](https://hub.docker.com/r/arianrhodsandlot/retroassembly#quick-start).
 
@@ -119,7 +120,6 @@ RetroAssembly aims to support a wide range of vintage gaming systems. Emulation 
 | Atari Lynx                              | `mednafen_lynx`                                    |
 | Channel F                               | `freechaf`                                         |
 | ColecoVision                            | `gearcoleco`                                       |
-| Dreamcast (experimental)                | `flycast`                                          |
 | Commodore 64                            | `vice_x64sc`, `vice_x64`, `vice_xscpu64`           |
 | Commodore 128                           | `vice_x128`                                        |
 | Commodore PET                           | `vice_xpet`                                        |
@@ -150,33 +150,55 @@ RetroAssembly aims to support a wide range of vintage gaming systems. Emulation 
 
 </details>
 
-The Commodore machines are home computers rather than consoles, and are driven by a keyboard. Loading a game from a disk image may require typing a command such as `LOAD"*",8,1` at the BASIC prompt.
+### Keyboard on home computers
+
+Commodore (VICE), ZX Spectrum (Fuse), and Amstrad CPC (Cap32) use the host keyboard for typing. While a game is running:
+
+- Keys are passed through to the emulator (RetroArch **Game Focus** is enabled automatically for these cores).
+- **Escape** still opens the in-game overlay / pause menu.
+- A gamepad continues to work for joystick-style controls where the core supports it.
+
+Loading a Commodore game from a disk image may require typing a command such as `LOAD"*",8,1` at the BASIC prompt, then Return.
 
 ## Differences From Upstream
 
-- **Uploaded ROMs keep their original filenames, in one shared folder.** Upstream stores each upload under a content hash, at `roms/<platform>/<digest><ext>`, keeping the original name only in the database. Here they are stored at `roms/<platform>/<filename>` - readable on disk, and shared by every account rather than split into a folder per user.
-- **Only the super user (the first registered account) may upload or scan.** Since the ROM folder above is now shared rather than per-user, only one account is allowed to write to it - the same "super user" concept the account-management settings already used to decide who could create or delete other accounts. Other accounts can be given read-only access to the same library; see [Self-Host with Docker](#option-2-self-host-with-docker) for how.
+- **Uploaded ROMs keep their original filenames, in one shared folder.** Upstream stores each upload under a content hash, at `roms/<platform>/<digest><ext>`, keeping the original name only in the database. Here they are stored at `roms/<platform>/<filename>` — readable on disk, and shared by every account rather than split into a folder per user.
+- **Only the super user (the first registered account) may upload or scan.** Since the ROM folder above is now shared rather than per-user, only one account is allowed to write to it — the same "super user" concept the account-management settings already used to decide who could create or delete other accounts. Other accounts can be given read-only access to the same library; see [Self-Host with Docker](#option-2-self-host-with-docker) for how.
 - **A Scan button imports ROMs dropped directly onto the storage volume**, for bulk-loading an existing collection without uploading file by file through the browser. It appears next to Add on the library homepage and scans every platform folder under `roms/`.
-- **Commodore support.** The Commodore 64, 128, VIC-20, Plus/4 (and 16) and PET are supported through the VICE cores. No BIOS files are required; the system ROMs are embedded in the cores.
-- **Atari Jaguar via Virtual Jaguar.** Upstream's shared emscripten core pack does not include `virtualjaguar`, so this fork ships the official libretro emscripten build under `public/cores/` and loads it locally. Most titles boot with the core's HLE BIOS; no BIOS dump is required.
-- **ZX Spectrum via Fuse.** The Fuse core is not in the shared emscripten pack; this fork builds and ships it under `public/cores/`. Tape/snapshot formats (`.tap`, `.tzx`, `.z80`, …). Keyboard-driven; standard models need no BIOS.
-- **Amstrad CPC via Caprice32.** Likewise self-built and shipped under `public/cores/`. Defaults to the **CPC 6128** model. Disk/tape/snapshot (`.dsk`, `.sna`, `.cdt`, …); embedded ROMs, no external BIOS.
-- **Dreamcast via experimental Flycast WASM.** Uses [nasomers/flycast-wasm](https://github.com/nasomers/flycast-wasm) (EmulatorJS-oriented build adapted for Nostalgist). **Interpreter-only — expect very low FPS.** Upload `dc_boot.bin` as BIOS. Not an official libretro/upstream Flycast web build.
-- **Images publish to the GitHub Container Registry** instead of Docker Hub. See [Self-Host with Docker](#option-2-self-host-with-docker).
+- **Commodore support.** C64, 128, VIC-20, Plus/4 (and 16), and PET via VICE cores. System ROMs are embedded; no external BIOS. Host keyboard passthrough is enabled for typing.
+- **Atari Jaguar via Virtual Jaguar.** Not in the shared emscripten core pack; this fork ships the build under `public/cores/` and loads it locally. Most titles use the core's HLE BIOS.
+- **ZX Spectrum via Fuse.** Self-built and shipped under `public/cores/`. Tape/snapshot formats (`.tap`, `.tzx`, `.z80`, …). Keyboard passthrough enabled.
+- **Amstrad CPC via Caprice32.** Self-built under `public/cores/`. Defaults to the **CPC 6128** model. Disk/tape/snapshot (`.dsk`, `.sna`, `.cdt`, …). Keyboard passthrough enabled.
+- **Images publish to the GitHub Container Registry** (`ghcr.io/schtufbox/retroassembly`) instead of Docker Hub.
+
+## Development (this fork)
+
+```sh
+pnpm install
+pnpm dev          # http://localhost:8000
+pnpm vp check --fix
+pnpm test         # Playwright e2e
+```
+
+Release / image (fork only — never push to upstream):
+
+```sh
+# commit + push origin main, then tag (example scheme v6.yymmdd.HHMM)
+git tag v6.yymmdd.HHMM
+git push origin v6.yymmdd.HHMM   # triggers Build and Push Docker Image → GHCR
+```
 
 ## Contributing
 
-See [Contributing](docs/contributing.md).
+See [Contributing](docs/contributing.md). For this fork, open PRs against [schtufbox/retroassembly](https://github.com/schtufbox/retroassembly).
 
 ## Sponsorship
 
-Sponsor this project on [Ko-fi](https://ko-fi.com/arianrhodsandlot) (or alternatively on [GitHub Sponsors](https://github.com/sponsors/arianrhodsandlot) / [Buy Me a Coffee](https://buymeacoffee.com/arianrhodsandlot)) to show your appreciation!
-
-This keeps the project sustainable and ensures continuous improvements and new features.
+Sponsor the upstream project on [Ko-fi](https://ko-fi.com/arianrhodsandlot) (or [GitHub Sponsors](https://github.com/sponsors/arianrhodsandlot) / [Buy Me a Coffee](https://buymeacoffee.com/arianrhodsandlot)).
 
 ## Open-source Alternatives
 
-We hope you have a fantastic time revisiting your favorite retro games... Even with applications other than RetroAssembly.
+We hope you have a fantastic time revisiting your favorite retro games… even with applications other than RetroAssembly.
 
 - [EmulatorJS](https://emulatorjs.org) [:octocat:](https://github.com/EmulatorJS/EmulatorJS)
 - [GamePlayColor](https://gameplaycolor.com) [:octocat:](https://github.com/gameplaycolor/gameplaycolor)

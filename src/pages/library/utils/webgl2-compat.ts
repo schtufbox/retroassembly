@@ -1,5 +1,4 @@
-// WebGL2 compatibility patches (from nasomers/flycast-wasm webgl2-compat.js).
-// Needed so RetroArch gl2 + GLES cores can init video and avoid console spam lag.
+// WebGL2 compatibility patches for RetroArch Emscripten gl2 + GLES cores.
 
 const patchedFlag = 'webgl2CompatPatched'
 

@@ -1,9 +1,7 @@
 import { a5200Options } from './a5200.ts'
 import { cap32Options } from './cap32.ts'
-import { dolphinOptions } from './dolphin.ts'
 import { fbneoOptions } from './fbneo.ts'
 import { fceummOptions } from './fceumm.ts'
-import { flycastOptions } from './flycast.ts'
 import { fuseOptions } from './fuse.ts'
 import { gambatteOptions } from './gambatte.ts'
 import { gearboyOptions } from './gearboy.ts'
@@ -29,10 +27,8 @@ import { virtualjaguarOptions } from './virtualjaguar.ts'
 export const coreOptionsMap = {
   a5200: a5200Options,
   cap32: cap32Options,
-  dolphin: dolphinOptions,
   fbneo: fbneoOptions,
   fceumm: fceummOptions,
-  flycast: flycastOptions,
   fuse: fuseOptions,
   gambatte: gambatteOptions,
   gearboy: gearboyOptions,

@@ -127,27 +127,8 @@ export const defaultPreference: ResolvedPreference = {
         cap32_ram: '128',
         cap32_scr_crop: 'disabled',
       },
-      dolphin: {
-        dolphin_cpu_core: '5',
-        dolphin_dsp_hle: 'enabled',
-        dolphin_efb_scale: '1',
-        dolphin_main_cpu_thread: 'disabled',
-        dolphin_renderer: 'Hardware',
-        dolphin_skip_gc_bios: 'enabled',
-        dolphin_wait_for_shaders: 'disabled',
-        dolphin_widescreen_hack: 'disabled',
-      },
       fceumm: {
         fceumm_turbo_enable: 'Both',
-      },
-      flycast: {
-        reicast_alpha_sorting: 'per-strip (fast, least accurate)',
-        reicast_boot_to_bios: 'disabled',
-        reicast_frame_skipping: 'enabled',
-        // HLE as safety net if real BIOS is missing or not under system/dc/
-        reicast_hle_bios: 'enabled',
-        reicast_internal_resolution: '640x480',
-        reicast_threaded_rendering: 'disabled',
       },
       mame2003_plus: {
         'mame2003-plus_skip_disclaimer': 'enabled',

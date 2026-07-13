@@ -79,8 +79,6 @@ const locallyHostedAssetPlatforms = new Set([
   'c128',
   'c64',
   'cpc',
-  'dreamcast',
-  'gamecube',
   'pet',
   'plus4',
   'vic20',

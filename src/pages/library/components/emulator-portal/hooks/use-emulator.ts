@@ -28,9 +28,50 @@ type NostalgistOption = Parameters<typeof Nostalgist.prepare>[0]
 type RetroarchConfig = Partial<NostalgistOption['retroarchConfig']>
 
 // Must match Nostalgist's EmulatorFileSystem.systemDirectory. If system_directory is
-// empty, RetroArch falls back to the content directory and never sees uploaded BIOS files
-// (Flycast, etc. then black-screen).
+// empty, RetroArch falls back to the content directory and never sees uploaded BIOS files.
 const retroarchSystemDirectory = '/home/web_user/retroarch/userdata/system'
+
+// Computer systems that need the host keyboard passed through to the core (typing,
+// function keys, etc.). Without Game Focus, RetroArch steals keys for joypad/hotkeys.
+const keyboardCores = new Set([
+  'cap32',
+  'fuse',
+  'vice_x64',
+  'vice_x64sc',
+  'vice_xscpu64',
+  'vice_x128',
+  'vice_xvic',
+  'vice_xplus4',
+  'vice_xpet',
+])
+
+// Unbind keyboard→joypad/hotkey maps so letters and F-keys reach the core. Gamepads still work.
+const keyboardCoreInputConfig: RetroarchConfig = {
+  // @ts-expect-error not listed in nostalgist's RetroArch config types yet
+  input_auto_game_focus: 'on',
+  input_hold_fast_forward: 'nul',
+  input_player1_a: 'nul',
+  input_player1_b: 'nul',
+  input_player1_down: 'nul',
+  input_player1_l1: 'nul',
+  input_player1_l2: 'nul',
+  input_player1_l3: 'nul',
+  input_player1_left: 'nul',
+  input_player1_r1: 'nul',
+  input_player1_r2: 'nul',
+  input_player1_r3: 'nul',
+  input_player1_right: 'nul',
+  input_player1_select: 'nul',
+  input_player1_start: 'nul',
+  input_player1_up: 'nul',
+  input_player1_x: 'nul',
+  input_player1_y: 'nul',
+  input_rewind: 'nul',
+}
+
+function isKeyboardCore(core: string | undefined) {
+  return Boolean(core && keyboardCores.has(core))
+}
 
 const defaultRetroarchConfig: RetroarchConfig = {
   fastforward_ratio: 10,
@@ -73,8 +114,6 @@ export function useEmulator() {
     platformShader === 'inherit' ? preference.emulator.shader : (platformShader ?? preference.emulator.shader)
 
   const romObject = useMemo(() => ({ fileContent: romUrl, fileName: rom?.fileName }), [rom, romUrl])
-  // Nostalgist keeps only the basename of bios fileName; nostalgist.ts beforeLaunch
-  // relocates them (Flycast → system/dc/, Dolphin IPL → system/dolphin-emu/Sys/GC/<region>/).
   const bios = (preference.emulator.platform[rom.platform]?.bioses || []).map(({ fileId, fileName }) => ({
     fileContent: getFileUrl(fileId),
     fileName,
@@ -90,9 +129,11 @@ export function useEmulator() {
         // this might be a bug of retroarch's emscripten build, y plus and y minus are swapped
         input_player1_l_y_minus: preference.input.keyboardMapping.input_player1_l_y_plus,
         input_player1_l_y_plus: preference.input.keyboardMapping.input_player1_l_y_minus,
-        rewind_enable: !['mupen64plus_next', 'flycast', 'dolphin'].includes(core),
-        run_ahead_enabled: !['mupen64plus_next', 'pcsx_rearmed', 'flycast', 'dolphin'].includes(core),
+        rewind_enable: !['mupen64plus_next'].includes(core) && !isKeyboardCore(core),
+        run_ahead_enabled: !['mupen64plus_next', 'pcsx_rearmed'].includes(core) && !isKeyboardCore(core),
         video_smooth: preference.emulator.videoSmooth,
+        // Applied last so typing works for computer cores (VICE / Fuse / Cap32).
+        ...(isKeyboardCore(core) ? keyboardCoreInputConfig : {}),
       },
       retroarchCoreConfig: preference.emulator.core[core],
       rom: romObject,
@@ -158,11 +199,18 @@ export function useEmulator() {
     const canvas = emulator.getCanvas()
     if (canvas) {
       canvas.style.opacity = '1'
+      // Keyboard cores need a focusable canvas that can receive key events.
+      if (isKeyboardCore(core)) {
+        canvas.setAttribute('tabindex', '0')
+      }
       const cssVars = getGlobalCSSVars(preference)
       if (cssVars['--game-saturate'] !== '100%') {
         canvas.style.filter = `saturate(var(--game-saturate))`
       }
-      focus('canvas')
+      focus(canvas)
+      if (isKeyboardCore(core)) {
+        canvas.focus({ preventScroll: true })
+      }
     }
 
     if (preference.emulator.fullscreen) {

@@ -200,24 +200,6 @@ const basePlatformMap = {
     },
     libretroName: 'Amstrad - CPC',
   },
-  // Experimental: self-built libretro Flycast for Emscripten (SH4 interpreter + WebGL2).
-  // Not the EmulatorJS-shaped pack. Expect low FPS. BIOS dc_boot.bin is required.
-  dreamcast: {
-    bioses: [
-      { md5: 'e10c53c2f8b90bab96ead2d368858623', name: 'dc_boot.bin', required: true },
-      { name: 'dc_flash.bin' },
-    ],
-    cores: ['flycast'],
-    displayNameI18nKey: 'platform.dreamcast',
-    fileExtensions: ['.chd', '.cdi', '.gdi', '.cue', '.bin', '.zip', '.7z', '.m3u'],
-    info: {
-      developer: 'Sega',
-      manufacturer: 'Sega',
-      notesI18nKey: 'platform.dreamcastNote',
-      releaseDate: '1998-11-27T00:00:00-08:00',
-    },
-    libretroName: 'Sega - Dreamcast',
-  },
   famicom: {
     bioses: [{ name: 'nes.pal' }, { name: 'gamegenie.nes' }],
     cores: ['fceumm', 'nestopia', 'quicknes'],
@@ -259,21 +241,6 @@ const basePlatformMap = {
       releaseDate: '1980-04-28T00:00:00-07:00',
     },
     libretroName: 'Handheld Electronic Game',
-  },
-  // Experimental: self-built libretro Dolphin (ENABLE_GENERIC interpreter, single-core) for Emscripten.
-  // Dual-core forced off (no pthreads). Bundled Sys at system/dolphin-emu/Sys/; optional IPL → Sys/GC/<region>/.
-  gamecube: {
-    bioses: [{ name: 'IPL.bin' }],
-    cores: ['dolphin'],
-    displayNameI18nKey: 'platform.gamecube',
-    fileExtensions: ['.iso', '.gcm', '.gcz', '.ciso', '.wbfs', '.rvz', '.wia', '.dol', '.elf', '.tgc', '.wad', '.m3u'],
-    info: {
-      developer: 'Nintendo',
-      manufacturer: 'Nintendo',
-      notesI18nKey: 'platform.gamecubeNote',
-      releaseDate: '2001-09-14T00:00:00-07:00',
-    },
-    libretroName: 'Nintendo - GameCube',
   },
   gamegear: {
     bioses: [{ md5: '672e104c3be3a238301aceffc3b23fd6', name: 'bios.gg' }],

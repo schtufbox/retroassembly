@@ -1,7 +1,0 @@
-<svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GameCube content">
-  <rect width="120" height="160" rx="8" fill="#1a1030"/>
-  <path d="M30 55 L60 38 L90 55 L90 95 L60 112 L30 95 Z" fill="none" stroke="#6B5BFF" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M30 55 L60 72 L90 55 M60 72 L60 112" fill="none" stroke="#6B5BFF" stroke-width="2.5" opacity="0.85"/>
-  <circle cx="60" cy="72" r="5" fill="#9B8CFF"/>
-  <text x="60" y="140" text-anchor="middle" fill="#9B8CFF" font-family="system-ui,sans-serif" font-size="12" font-weight="600">GameCube</text>
-</svg>

@@ -3,10 +3,8 @@ export { coreOptionsMap } from './core-options/index.ts'
 export const cores = {
   a5200: { displayName: 'a5200' },
   cap32: { displayName: 'Caprice32' },
-  dolphin: { displayName: 'Dolphin (WASM experimental)' },
   fbneo: { displayName: 'FinalBurn Neo' },
   fceumm: { displayName: 'FCEUmm' },
-  flycast: { displayName: 'Flycast (WASM experimental)' },
   freechaf: { displayName: 'FreeChaF' },
   fuse: { displayName: 'Fuse' },
   gambatte: { displayName: 'Gambatte' },

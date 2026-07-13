@@ -6,9 +6,9 @@ import { cdnHost } from '#@/utils/isomorphic/cdn.ts'
 import { installWebgl2CompatPatches } from './webgl2-compat.ts'
 
 const extractCache = new Map<string, ReturnType<typeof extractCore>>()
-const localCores = new Set(['virtualjaguar', 'fuse', 'cap32', 'flycast', 'dolphin'])
+const localCores = new Set(['virtualjaguar', 'fuse', 'cap32'])
 // Production serves public/cores with Cache-Control: immutable. Bust when the build changes
-// so rebuilt cores (especially experimental Flycast) are not stuck on a broken zip forever.
+// so rebuilt local cores are not stuck on an old zip forever.
 const localCoreCacheBust = metadata.version || metadata.buildDate || 'dev'
 
 function getCoreCDNUrl(core: string) {
@@ -71,120 +71,6 @@ async function extractCoreWithCache(core: string) {
   }
 }
 
-interface EmscriptenFS {
-  analyzePath: (path: string) => { exists: boolean }
-  mkdirTree: (path: string) => void
-  rename: (oldPath: string, newPath: string) => void
-  writeFile: (path: string, data: Uint8Array) => void
-  readFile: (path: string, opts?: { encoding: 'binary' }) => Uint8Array
-}
-
-const systemDirectory = '/home/web_user/retroarch/userdata/system'
-const dolphinSysRoot = `${systemDirectory}/dolphin-emu/Sys`
-let dolphinSysMount: Promise<void> | undefined
-
-// Nostalgist strips directories from bios fileName (basename only). Move firmwares
-// into the layouts Flycast/Dolphin expect under system/.
-function relocateSystemBioses(FS: EmscriptenFS) {
-  for (const name of ['dc_boot.bin', 'dc_flash.bin']) {
-    const src = `${systemDirectory}/${name}`
-    const dest = `${systemDirectory}/dc/${name}`
-    try {
-      if (FS.analyzePath(src).exists && !FS.analyzePath(dest).exists) {
-        FS.mkdirTree(`${systemDirectory}/dc`)
-        FS.rename(src, dest)
-      }
-    } catch {}
-  }
-
-  // Dolphin looks for IPL under Sys/GC/<region>/IPL.bin (and DSP dumps under Sys/GC/).
-  const iplCandidates = [`${systemDirectory}/IPL.bin`, `${systemDirectory}/dolphin-emu/IPL.bin`]
-  let iplSource: string | undefined
-  for (const candidate of iplCandidates) {
-    try {
-      if (FS.analyzePath(candidate).exists) {
-        iplSource = candidate
-        break
-      }
-    } catch {}
-  }
-  if (iplSource) {
-    try {
-      const data = FS.readFile(iplSource, { encoding: 'binary' })
-      for (const region of ['USA', 'JAP', 'EUR']) {
-        const destDir = `${dolphinSysRoot}/GC/${region}`
-        const dest = `${destDir}/IPL.bin`
-        if (!FS.analyzePath(dest).exists) {
-          FS.mkdirTree(destDir)
-          FS.writeFile(dest, data)
-        }
-      }
-    } catch {}
-  }
-
-  for (const name of ['dsp_coef.bin', 'dsp_rom.bin']) {
-    const src = `${systemDirectory}/${name}`
-    const dest = `${dolphinSysRoot}/GC/${name}`
-    try {
-      if (FS.analyzePath(src).exists && !FS.analyzePath(dest).exists) {
-        FS.mkdirTree(`${dolphinSysRoot}/GC`)
-        FS.rename(src, dest)
-      }
-    } catch {}
-  }
-}
-
-async function mountDolphinSysFiles(FS: EmscriptenFS) {
-  const marker = `${dolphinSysRoot}/codehandler.bin`
-  try {
-    if (FS.analyzePath(marker).exists) {
-      return
-    }
-  } catch {}
-
-  const response = await fetch(`/cores/dolphin_sys.zip?v=${encodeURIComponent(String(localCoreCacheBust))}`)
-  if (!response.ok) {
-    throw new Error(`Failed to fetch Dolphin Sys assets: HTTP ${response.status}`)
-  }
-  const zipReader = new ZipReader(new BlobReader(await response.blob()))
-  const entries = await zipReader.getEntries()
-  await Promise.all(
-    entries.map(async (entry) => {
-      if (!entry || entry.directory || !entry.getData) {
-        return
-      }
-      const relative = entry.filename.replace(/^\/+/u, '')
-      if (!relative || relative.includes('..')) {
-        return
-      }
-      const target = `${dolphinSysRoot}/${relative}`
-      try {
-        if (FS.analyzePath(target).exists) {
-          return
-        }
-      } catch {}
-      const blob = await entry.getData(new BlobWriter('application/octet-stream'))
-      const buffer = new Uint8Array(await blob.arrayBuffer())
-      const slash = target.lastIndexOf('/')
-      if (slash > 0) {
-        FS.mkdirTree(target.slice(0, slash))
-      }
-      FS.writeFile(target, buffer)
-    }),
-  )
-  await zipReader.close()
-}
-
-function getCoreName(core: unknown) {
-  if (typeof core === 'string') {
-    return core
-  }
-  if (core && typeof core === 'object' && 'name' in core && typeof core.name === 'string') {
-    return core.name
-  }
-  return ''
-}
-
 const style: Partial<CSSStyleDeclaration> = {
   backgroundPosition: ['left center', 'right center'].join(','),
   backgroundRepeat: 'no-repeat',
@@ -200,24 +86,9 @@ if (isBrowser()) {
   installWebgl2CompatPatches()
   const { path } = Nostalgist.vendors
   Nostalgist.configure({
-    async beforeLaunch(nostalgist) {
-      const FS = nostalgist.getEmscriptenFS() as EmscriptenFS
+    beforeLaunch(nostalgist) {
+      const FS = nostalgist.getEmscriptenFS()
       const options = nostalgist.getOptions()
-      const coreName = getCoreName(options.core)
-
-      // Libretro Dolphin requires system/dolphin-emu/Sys (fonts, shaders, GameSettings).
-      // Without it the core often ends on the Null video backend → blank screen.
-      if (coreName === 'dolphin') {
-        try {
-          dolphinSysMount ||= mountDolphinSysFiles(FS)
-          await dolphinSysMount
-        } finally {
-          dolphinSysMount = undefined
-        }
-      }
-
-      relocateSystemBioses(FS)
-
       const shadersDirectory = '/home/web_user/retroarch/bundle/shaders/shaders_glsl/shaders'
       switch (options.shader) {
         case 'crt/crt-easymode-halation':

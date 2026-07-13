@@ -31,7 +31,6 @@ const repositoryVersions = {
   'libretro-thumbnails/Nintendo_-_Virtual_Boy': '75693093d5c9bce8fc61ec073877384c47c82cb6', // https://github.com/libretro-thumbnails/Nintendo_-_Virtual_Boy/commits
   'libretro-thumbnails/Philips_-_Videopac': '2a43c1d80347b2f2d8122e49adb8f7366eb15551', // https://github.com/libretro-thumbnails/Philips_-_Videopac/commits
   'libretro-thumbnails/Sega_-_32X': 'eea9df070a32a4fb0765353327aba3c4608e7066', // https://github.com/libretro-thumbnails/Sega_-_32X/commits
-  'libretro-thumbnails/Sega_-_Dreamcast': 'c8626ea109b685595ea5777867dac1fa7392feaf', // https://github.com/libretro-thumbnails/Sega_-_Dreamcast/commits
   'libretro-thumbnails/Sega_-_Game_Gear': '3064122416ceab894340f35caf1f641713abb51d', // https://github.com/libretro-thumbnails/Sega_-_Game_Gear/commits
   'libretro-thumbnails/Sega_-_Master_System_-_Mark_III': '7561221e20c398326268b5aa9dbe48ba967cf45c', // https://github.com/libretro-thumbnails/Sega_-_Master_System_-_Mark_III/commits
   'libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis': 'fa297306ef552f00b0a5b0f2569a8df883d7aea6', // https://github.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/commits

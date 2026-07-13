@@ -1,6 +1,0 @@
-<svg viewBox="0 0 64 64" width="64" height="64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GameCube">
-  <rect width="64" height="64" rx="10" fill="#1a1030"/>
-  <path d="M18 22 L32 14 L46 22 L46 38 L32 46 L18 38 Z" fill="none" stroke="#6B5BFF" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M18 22 L32 30 L46 22 M32 30 L32 46" fill="none" stroke="#6B5BFF" stroke-width="2" opacity="0.85"/>
-  <circle cx="32" cy="30" r="3" fill="#9B8CFF"/>
-</svg>

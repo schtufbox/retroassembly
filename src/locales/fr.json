@@ -396,9 +396,5 @@
   "platform.zxSpectrumNote": "The ZX Spectrum is an 8-bit home computer released by Sinclair Research in April 1982, with later models produced by Amstrad. Sold in 16K and 48K (and later 128K) configurations, it used a rubber or plastic keyboard, a Z80 CPU and colour graphics that became a hallmark of British and European bedroom coding culture. Software was commonly distributed on cassette tape (.tap, .tzx) as well as disk and snapshot formats. Emulation is provided by the Fuse core.",
   "platform.cpc": "Amstrad CPC",
   "platform.cpcNote": "The Amstrad CPC (Colour Personal Computer) is a series of 8-bit home computers from Amstrad, beginning with the CPC464 in 1984. The CPC 6128, released later the same year, shipped with 128 KB of RAM and a built-in 3-inch floppy disk drive, and became one of the most popular models in Europe. Software is commonly distributed as disk images (.dsk), snapshots (.sna) and tape files (.cdt, .tap). Emulation uses Caprice32 with the 6128 model selected by default.",
-  "platform.dreamcast": "Dreamcast",
-  "platform.dreamcastNote": "The Sega Dreamcast is a sixth-generation console (1998–2001). This fork ships a self-built RetroArch Emscripten Flycast core (SH4 interpreter, WebGL2). Expect low FPS on heavy 3D titles. Upload dc_boot.bin (and optionally dc_flash.bin) under Settings → Emulating → BIOS (stored as system/dc/). Prefer CHD disc images when possible.",
-  "platform.gamecube": "GameCube",
-  "platform.gamecubeNote": "The Nintendo GameCube is a sixth-generation console (2001). This fork ships an experimental self-built Dolphin WASM core (ENABLE_GENERIC interpreter, single-core, no pthreads). Dolphin Sys files are bundled and mounted under system/dolphin-emu/Sys/ on launch. Optional IPL.bin can be uploaded under Settings → Emulating → BIOS (copied to Sys/GC/USA|JAP|EUR/). Prefer GCZ/RVZ/ISO. Expect very low FPS. Not an official Dolphin or Libretro release.",
   "bios.requiredAnyOf": "required (any one)"
 }
