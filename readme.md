@@ -152,7 +152,7 @@ The Commodore machines are home computers rather than consoles, and are driven b
 
 - **Uploaded ROMs keep their original filenames, in one shared folder.** Upstream stores each upload under a content hash, at `roms/<platform>/<digest><ext>`, keeping the original name only in the database. Here they are stored at `roms/<platform>/<filename>` - readable on disk, and shared by every account rather than split into a folder per user.
 - **Only the super user (the first registered account) may upload or scan.** Since the ROM folder above is now shared rather than per-user, only one account is allowed to write to it - the same "super user" concept the account-management settings already used to decide who could create or delete other accounts. Other accounts can be given read-only access to the same library; see [Self-Host with Docker](#option-2-self-host-with-docker) for how.
-- **A Scan button imports ROMs dropped directly onto the storage volume**, for bulk-loading an existing collection without uploading file by file through the browser. It appears next to Add on the homepage and on every platform page.
+- **A Scan button imports ROMs dropped directly onto the storage volume**, for bulk-loading an existing collection without uploading file by file through the browser. It appears next to Add on the library homepage and scans every platform folder under `roms/`.
 - **Commodore support.** The Commodore 64, 128, VIC-20, Plus/4 (and 16) and PET are supported through the VICE cores. No BIOS files are required; the system ROMs are embedded in the cores.
 - **Images publish to the GitHub Container Registry** instead of Docker Hub. See [Self-Host with Docker](#option-2-self-host-with-docker).
 
