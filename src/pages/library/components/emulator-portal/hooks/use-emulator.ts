@@ -27,6 +27,11 @@ import { useJaguarNumpad } from './use-jaguar-numpad.ts'
 type NostalgistOption = Parameters<typeof Nostalgist.prepare>[0]
 type RetroarchConfig = Partial<NostalgistOption['retroarchConfig']>
 
+// Must match Nostalgist's EmulatorFileSystem.systemDirectory. If system_directory is
+// empty, RetroArch falls back to the content directory and never sees uploaded BIOS files
+// (Opera/3DO, Flycast, etc. then black-screen).
+const retroarchSystemDirectory = '/home/web_user/retroarch/userdata/system'
+
 const defaultRetroarchConfig: RetroarchConfig = {
   fastforward_ratio: 10,
   input_player1_analog_dpad_mode: 1,
@@ -36,8 +41,9 @@ const defaultRetroarchConfig: RetroarchConfig = {
   rewind_granularity: 4,
   rgui_menu_color_theme: 1,
   run_ahead_frames: 1,
+  system_directory: retroarchSystemDirectory,
   video_gpu_screenshot: true,
-  // @ts-expect-error this option is not yet listed in types
+  // @ts-expect-error not listed in nostalgist's RetroArch config types yet
   video_viewport_bias_y: 0.1,
 }
 

@@ -1,5 +1,6 @@
 import type { CoreOption } from './types.d.ts'
 
+// System BIOS is selected by which files are present under system/; upload via Settings → Emulating.
 export const operaOptions: CoreOption[] = [
   {
     defaultOption: '1.0x (12.50Mhz)',
@@ -26,5 +27,11 @@ export const operaOptions: CoreOption[] = [
     name: 'opera_nvram_storage',
     options: ['per game', 'shared'],
     title: 'NVRAM Storage',
+  },
+  {
+    defaultOption: 'enabled',
+    name: 'opera_swi_hle',
+    options: ['disabled', 'enabled'],
+    title: 'OS SWI HLE',
   },
 ]

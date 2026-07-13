@@ -9,6 +9,13 @@ export const dolphinOptions: CoreOption[] = [
     title: 'CPU Core (0=Interpreter, 5=Cached Interpreter)',
   },
   {
+    // Dual core needs real pthreads; WASM build forces single-core.
+    defaultOption: 'disabled',
+    name: 'dolphin_main_cpu_thread',
+    options: ['disabled', 'enabled'],
+    title: 'Dual Core Mode',
+  },
+  {
     defaultOption: 'Hardware',
     name: 'dolphin_renderer',
     options: ['Hardware'],

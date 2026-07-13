@@ -68,7 +68,7 @@ export function BIOSOptions({ platform }: { readonly platform: PlatformName }) {
       return ''
     }
     if (bios.required) {
-      return t('common.required')
+      return platformMap[platform].biosRequirement === 'any' ? t('bios.requiredAnyOf') : t('common.required')
     }
     return t('common.optional')
   }

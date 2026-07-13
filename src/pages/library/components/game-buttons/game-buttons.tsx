@@ -9,6 +9,7 @@ import { useEmulator } from '#@/pages/library/components/emulator-portal/hooks/u
 import { useFocusIndicator } from '#@/pages/library/hooks/use-focus-indicator.ts'
 import { usePreference } from '#@/pages/library/hooks/use-preference.ts'
 import { getFileUrl } from '#@/pages/library/utils/file.ts'
+import { getMissingRequiredBioses } from '#@/utils/isomorphic/bios.ts'
 import { LaunchButton } from '../../platform/rom/components/launch-button.tsx'
 import { EmulatorPortal } from '../emulator-portal/emulator-portal.tsx'
 import { BioseMissingMessage } from './biose-missing-message.tsx'
@@ -30,10 +31,7 @@ export function GameButtons() {
 
   const { bioses } = preference.emulator.platform[rom.platform]
 
-  const expectedBioses = platformMap[rom.platform].bioses
-  const missingBioses = expectedBioses?.filter(
-    (bios) => bios.required && !bioses?.some((b) => b.fileName === bios.name),
-  )
+  const missingBioses = getMissingRequiredBioses(platformMap[rom.platform], bioses)
 
   function handleClickCommon(event: MouseEvent<HTMLButtonElement>) {
     const button = event.currentTarget

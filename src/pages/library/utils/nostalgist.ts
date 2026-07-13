@@ -2,7 +2,7 @@ import { BlobReader, BlobWriter, ZipReader } from '@zip.js/zip.js'
 import { isBrowser } from 'es-toolkit'
 import { Nostalgist } from 'nostalgist'
 import { cdnHost } from '#@/utils/isomorphic/cdn.ts'
-import { installFlycastWebglPatches } from './flycast-webgl.ts'
+import { installWebgl2CompatPatches } from './webgl2-compat.ts'
 
 const extractCache = new Map<string, ReturnType<typeof extractCore>>()
 
@@ -73,7 +73,7 @@ const style: Partial<CSSStyleDeclaration> = {
 }
 
 if (isBrowser()) {
-  installFlycastWebglPatches()
+  installWebgl2CompatPatches()
   const { path } = Nostalgist.vendors
   Nostalgist.configure({
     beforeLaunch(nostalgist) {

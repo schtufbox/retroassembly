@@ -8,6 +8,8 @@ interface Bios {
 }
 
 interface BasePlatform {
+  /** When 'any', at least one `required` BIOS must be present. Default is all required. */
+  biosRequirement?: 'all' | 'any'
   bioses?: Bios[]
   cores: CoreName[]
   displayNameI18nKey: string
@@ -24,23 +26,25 @@ interface BasePlatform {
 // This link can be used as a reference for the map, but they may be not identical.
 // https://github.com/RetroPie/RetroPie-Setup/blob/master/platforms.cfg
 const basePlatformMap = {
-  // At least one of the system BIOSes is required by the Opera core (any model works).
+  // Opera needs one main firmware ROM (any model). Kanji ROMs are optional extras.
+  // Without a BIOS the core boots to a permanent black screen.
   '3do': {
     bioses: [
-      { md5: 'f47264dd47fe30f73ab3c010015c155b', name: 'panafz1.bin' },
-      { md5: '51f2f43ae2f3508a14d9f56597e2d3ce', name: 'panafz10.bin' },
-      { md5: '1477bda80dc33731a65468c1f5bcbee9', name: 'panafz10-norsa.bin' },
-      { md5: 'a48e6746bd7edec0f40cff078f0bb19f', name: 'panafz10e-anvil.bin' },
-      { md5: 'cf11bbb5a16d7af9875cca9de9a15e09', name: 'panafz10e-anvil-norsa.bin' },
-      { md5: 'a496cfdded3da562759be3561317b605', name: 'panafz1j.bin' },
-      { md5: 'f6c71de7470d16abe4f71b1444883dc8', name: 'panafz1j-norsa.bin' },
-      { md5: '8639fd5e549bd6238cfee79e3e749114', name: 'goldstar.bin' },
-      { md5: '35fa1a1ebaaeea286dc5cd15487c13ea', name: 'sanyotry.bin' },
-      { md5: '8970fc987ab89a7f64da9f8a8c4333ff', name: '3do_arcade_saot.bin' },
+      { md5: 'f47264dd47fe30f73ab3c010015c155b', name: 'panafz1.bin', required: true },
+      { md5: '51f2f43ae2f3508a14d9f56597e2d3ce', name: 'panafz10.bin', required: true },
+      { md5: '1477bda80dc33731a65468c1f5bcbee9', name: 'panafz10-norsa.bin', required: true },
+      { md5: 'a48e6746bd7edec0f40cff078f0bb19f', name: 'panafz10e-anvil.bin', required: true },
+      { md5: 'cf11bbb5a16d7af9875cca9de9a15e09', name: 'panafz10e-anvil-norsa.bin', required: true },
+      { md5: 'a496cfdded3da562759be3561317b605', name: 'panafz1j.bin', required: true },
+      { md5: 'f6c71de7470d16abe4f71b1444883dc8', name: 'panafz1j-norsa.bin', required: true },
+      { md5: '8639fd5e549bd6238cfee79e3e749114', name: 'goldstar.bin', required: true },
+      { md5: '35fa1a1ebaaeea286dc5cd15487c13ea', name: 'sanyotry.bin', required: true },
+      { md5: '8970fc987ab89a7f64da9f8a8c4333ff', name: '3do_arcade_saot.bin', required: true },
       { md5: 'b8dc97f778a6245c58e064b0312e8281', name: 'panafz1-kanji.bin' },
       { md5: '428577250f43edc902ea239c50d2240d', name: 'panafz10ja-anvil-kanji.bin' },
       { md5: 'c23fb5d5e6bb1c240d02cf968972be37', name: 'panafz1j-kanji.bin' },
     ],
+    biosRequirement: 'any',
     cores: ['opera'],
     displayNameI18nKey: 'platform.3do',
     fileExtensions: ['.chd', '.cue', '.iso', '.bin'],
@@ -226,10 +230,13 @@ const basePlatformMap = {
     },
     libretroName: 'Amstrad - CPC',
   },
-  // Experimental: Flycast WASM from nasomers/flycast-wasm, adapted for Nostalgist.
-  // Interpreter-only — expect very low FPS. BIOS dc_boot.bin is recommended.
+  // Experimental: self-built libretro Flycast for Emscripten (SH4 interpreter + WebGL2).
+  // Not the EmulatorJS-shaped pack. Expect low FPS. BIOS dc_boot.bin is required.
   dreamcast: {
-    bioses: [{ md5: 'e10c53c2f8b90bab96ead2d368858623', name: 'dc_boot.bin' }, { name: 'dc_flash.bin' }],
+    bioses: [
+      { md5: 'e10c53c2f8b90bab96ead2d368858623', name: 'dc_boot.bin', required: true },
+      { name: 'dc_flash.bin' },
+    ],
     cores: ['flycast'],
     displayNameI18nKey: 'platform.dreamcast',
     fileExtensions: ['.chd', '.cdi', '.gdi', '.cue', '.bin', '.zip', '.7z', '.m3u'],
@@ -283,8 +290,8 @@ const basePlatformMap = {
     },
     libretroName: 'Handheld Electronic Game',
   },
-  // Experimental: self-built libretro Dolphin (ENABLE_GENERIC interpreter) for Emscripten.
-  // Expect very low FPS. Dolphin Sys files go under system/dolphin-emu/. No official WASM core exists.
+  // Experimental: self-built libretro Dolphin (ENABLE_GENERIC interpreter, single-core) for Emscripten.
+  // Dual-core is forced off (no pthreads). Expect very low FPS. Sys/IPL under system/dolphin-emu/.
   gamecube: {
     bioses: [{ name: 'IPL.bin' }],
     cores: ['dolphin'],

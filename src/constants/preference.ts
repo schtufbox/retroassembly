@@ -120,9 +120,17 @@ export const defaultPreference: ResolvedPreference = {
   emulator: {
     autoSaveInterval: 0,
     core: {
+      cap32: {
+        cap32_autorun: 'enabled',
+        cap32_gfx_colors: '16bit',
+        cap32_model: '6128',
+        cap32_ram: '128',
+        cap32_scr_crop: 'disabled',
+      },
       dolphin: {
         dolphin_cpu_core: '5',
         dolphin_efb_scale: '1',
+        dolphin_main_cpu_thread: 'disabled',
         dolphin_renderer: 'Hardware',
         dolphin_widescreen_hack: 'disabled',
       },

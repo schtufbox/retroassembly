@@ -14,6 +14,12 @@ export const cap32Options: CoreOption[] = [
     title: 'RAM Size',
   },
   {
+    defaultOption: '16bit',
+    name: 'cap32_gfx_colors',
+    options: ['16bit', '24bit', '8bit'],
+    title: 'Color Depth',
+  },
+  {
     defaultOption: 'enabled',
     name: 'cap32_autorun',
     options: ['enabled', 'disabled'],
