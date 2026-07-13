@@ -8,7 +8,7 @@ const extractCache = new Map<string, ReturnType<typeof extractCore>>()
 
 function getCoreCDNUrl(core: string) {
   // Cores missing from the shared retroarch-emscripten-build set are shipped under public/cores/.
-  if (core === 'virtualjaguar' || core === 'fuse' || core === 'cap32' || core === 'flycast') {
+  if (core === 'virtualjaguar' || core === 'fuse' || core === 'cap32' || core === 'flycast' || core === 'dolphin') {
     return `/cores/${core}_libretro.zip`
   }
   const externalCores = ['a5200', 'prosystem', 'stella2014', 'mupen64plus_next']

@@ -67,11 +67,21 @@ export function useEmulator() {
     platformShader === 'inherit' ? preference.emulator.shader : (platformShader ?? preference.emulator.shader)
 
   const romObject = useMemo(() => ({ fileContent: romUrl, fileName: rom?.fileName }), [rom, romUrl])
-  const bios = preference.emulator.platform[rom.platform].bioses.map(({ fileId, fileName }) => ({
-    fileContent: getFileUrl(fileId),
-    // Flycast expects BIOS under system/dc/
-    fileName: core === 'flycast' && !fileName.includes('/') ? `dc/${fileName}` : fileName,
-  }))
+  const bios = preference.emulator.platform[rom.platform].bioses.map(({ fileId, fileName }) => {
+    let biosFileName = fileName
+    if (!fileName.includes('/')) {
+      if (core === 'flycast') {
+        biosFileName = `dc/${fileName}`
+      } else if (core === 'dolphin') {
+        biosFileName = `dolphin-emu/${fileName}`
+      }
+    }
+    return {
+      fileContent: getFileUrl(fileId),
+      // Flycast expects BIOS under system/dc/; Dolphin under system/dolphin-emu/
+      fileName: biosFileName,
+    }
+  })
   const options: NostalgistOption = useMemo(
     () => ({
       bios,
@@ -83,8 +93,8 @@ export function useEmulator() {
         // this might be a bug of retroarch's emscripten build, y plus and y minus are swapped
         input_player1_l_y_minus: preference.input.keyboardMapping.input_player1_l_y_plus,
         input_player1_l_y_plus: preference.input.keyboardMapping.input_player1_l_y_minus,
-        rewind_enable: !['mupen64plus_next', 'flycast'].includes(core),
-        run_ahead_enabled: !['mupen64plus_next', 'pcsx_rearmed', 'flycast'].includes(core),
+        rewind_enable: !['mupen64plus_next', 'flycast', 'dolphin'].includes(core),
+        run_ahead_enabled: !['mupen64plus_next', 'pcsx_rearmed', 'flycast', 'dolphin'].includes(core),
         video_smooth: preference.emulator.videoSmooth,
       },
       retroarchCoreConfig: preference.emulator.core[core],

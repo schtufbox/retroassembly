@@ -120,6 +120,12 @@ export const defaultPreference: ResolvedPreference = {
   emulator: {
     autoSaveInterval: 0,
     core: {
+      dolphin: {
+        dolphin_cpu_core: '5',
+        dolphin_efb_scale: '1',
+        dolphin_renderer: 'Hardware',
+        dolphin_widescreen_hack: 'disabled',
+      },
       fceumm: {
         fceumm_turbo_enable: 'Both',
       },

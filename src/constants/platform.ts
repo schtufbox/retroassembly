@@ -283,6 +283,21 @@ const basePlatformMap = {
     },
     libretroName: 'Handheld Electronic Game',
   },
+  // Experimental: self-built libretro Dolphin (ENABLE_GENERIC interpreter) for Emscripten.
+  // Expect very low FPS. Dolphin Sys files go under system/dolphin-emu/. No official WASM core exists.
+  gamecube: {
+    bioses: [{ name: 'IPL.bin' }],
+    cores: ['dolphin'],
+    displayNameI18nKey: 'platform.gamecube',
+    fileExtensions: ['.iso', '.gcm', '.gcz', '.ciso', '.wbfs', '.rvz', '.wia', '.dol', '.elf', '.tgc', '.wad', '.m3u'],
+    info: {
+      developer: 'Nintendo',
+      manufacturer: 'Nintendo',
+      notesI18nKey: 'platform.gamecubeNote',
+      releaseDate: '2001-09-14T00:00:00-07:00',
+    },
+    libretroName: 'Nintendo - GameCube',
+  },
   gamegear: {
     bioses: [{ md5: '672e104c3be3a238301aceffc3b23fd6', name: 'bios.gg' }],
     cores: ['genesis_plus_gx', 'gearsystem'],
