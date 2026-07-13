@@ -47,7 +47,8 @@ const keyboardCores = new Set([
 ])
 
 // Unbind keyboard→joypad/hotkey maps so letters and F-keys reach the core. Gamepads still work.
-// X (button 3) is nulled as a face button so it can be mirrored onto Up for jump-style play.
+// Face X is not bound as X; Up is rebound to that face button in retroarchConfig below
+// (jump on single-fire joysticks). useKeyboardCoreJumpUp keeps real d-pad/stick Up working.
 const keyboardCoreInputConfig: RetroarchConfig = {
   // @ts-expect-error not listed in nostalgist's RetroArch config types yet
   input_auto_game_focus: 'on',
@@ -121,6 +122,9 @@ export function useEmulator() {
     fileContent: getFileUrl(fileId),
     fileName,
   }))
+  const jumpButtonIndex = Math.trunc(Number(gamepadMapping.input_player1_x_btn ?? '3'))
+  const upButtonIndex = Math.trunc(Number(gamepadMapping.input_player1_up_btn ?? '12'))
+
   const options: NostalgistOption = useMemo(
     () => ({
       bios,
@@ -136,14 +140,20 @@ export function useEmulator() {
         run_ahead_enabled: !['mupen64plus_next', 'pcsx_rearmed'].includes(core) && !isKeyboardCore(core),
         video_smooth: preference.emulator.videoSmooth,
         // Applied last so typing works for computer cores (VICE / Fuse / Cap32).
-        ...(isKeyboardCore(core) ? keyboardCoreInputConfig : {}),
+        // Bind RetroArch Up to face X so jump works without relying on getGamepads alone.
+        ...(isKeyboardCore(core)
+          ? {
+              ...keyboardCoreInputConfig,
+              input_player1_up_btn: String(Number.isFinite(jumpButtonIndex) ? jumpButtonIndex : 3),
+            }
+          : {}),
       },
       retroarchCoreConfig: preference.emulator.core[core],
       rom: romObject,
       shader,
       state: state?.fileId ? getFileUrl(state.fileId) : undefined,
     }),
-    [romObject, bios, core, preference, gamepadMapping, shader, state?.fileId],
+    [romObject, bios, core, preference, gamepadMapping, shader, state?.fileId, jumpButtonIndex],
   )
 
   const {
@@ -158,9 +168,8 @@ export function useEmulator() {
   // keys while this core is running: numpad digits → 0-9, * → *, - → #.
   useJaguarNumpad(launched && core === 'virtualjaguar')
 
-  // VICE / Fuse / Cap32: also treat gamepad button 3 (X) as Up for single-fire joysticks.
-  const upButtonIndex = Math.trunc(Number(gamepadMapping.input_player1_up_btn ?? '12'))
-  useKeyboardCoreJumpUp(launched && isKeyboardCore(core), upButtonIndex)
+  // Mirror real d-pad/stick Up onto the jump face button (RetroArch Up binding above).
+  useKeyboardCoreJumpUp(launched && isKeyboardCore(core), upButtonIndex, jumpButtonIndex)
 
   const isPreparing = !rom || isValidating
 
