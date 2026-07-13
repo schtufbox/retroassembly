@@ -2,14 +2,14 @@ import { BlobReader, BlobWriter, ZipReader } from '@zip.js/zip.js'
 import { isBrowser } from 'es-toolkit'
 import { Nostalgist } from 'nostalgist'
 import { cdnHost } from '#@/utils/isomorphic/cdn.ts'
+import { installFlycastWebglPatches } from './flycast-webgl.ts'
 
 const extractCache = new Map<string, ReturnType<typeof extractCore>>()
 
 function getCoreCDNUrl(core: string) {
-  // virtualjaguar is missing from the shared retroarch-emscripten-build set used for every other
-  // core here, so the fork ships the official libretro emscripten nightly build under public/cores/.
-  if (core === 'virtualjaguar') {
-    return '/cores/virtualjaguar_libretro.zip'
+  // Cores missing from the shared retroarch-emscripten-build set are shipped under public/cores/.
+  if (core === 'virtualjaguar' || core === 'fuse' || core === 'cap32' || core === 'flycast') {
+    return `/cores/${core}_libretro.zip`
   }
   const externalCores = ['a5200', 'prosystem', 'stella2014', 'mupen64plus_next']
   const segments = externalCores.includes(core)
@@ -73,6 +73,7 @@ const style: Partial<CSSStyleDeclaration> = {
 }
 
 if (isBrowser()) {
+  installFlycastWebglPatches()
   const { path } = Nostalgist.vendors
   Nostalgist.configure({
     beforeLaunch(nostalgist) {

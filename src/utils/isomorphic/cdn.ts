@@ -2,6 +2,7 @@ import { encodeRFC3986URIComponent } from './misc.ts'
 
 const repositoryVersions = {
   'arianrhodsandlot/retroassembly-assets': 'feab5bc8061c36cf9ad01c35b36ab721c3929ca3', // https://github.com/arianrhodsandlot/retroassembly-assets/commits
+  'libretro-thumbnails/Amstrad_-_CPC': '5af8ad385d08f40399a4630ec5f2b5a479f31e8c', // https://github.com/libretro-thumbnails/Amstrad_-_CPC/commits
   'libretro-thumbnails/Atari_-_2600': '13f3b4c2393c79f8f03850609067fe9db5da40a1', // https://github.com/libretro-thumbnails/Atari_-_2600/commits
   'libretro-thumbnails/Atari_-_5200': '30b60c8a3bf2eff5c977ca09e909b9ef06a8c5c0', // https://github.com/libretro-thumbnails/Atari_-_5200/commits
   'libretro-thumbnails/Atari_-_7800': 'c8190373b1d1c1fb7a82c351fbca880fab9d1993', // https://github.com/libretro-thumbnails/Atari_-_7800/commits
@@ -30,12 +31,15 @@ const repositoryVersions = {
   'libretro-thumbnails/Nintendo_-_Virtual_Boy': '75693093d5c9bce8fc61ec073877384c47c82cb6', // https://github.com/libretro-thumbnails/Nintendo_-_Virtual_Boy/commits
   'libretro-thumbnails/Philips_-_Videopac': '2a43c1d80347b2f2d8122e49adb8f7366eb15551', // https://github.com/libretro-thumbnails/Philips_-_Videopac/commits
   'libretro-thumbnails/Sega_-_32X': 'eea9df070a32a4fb0765353327aba3c4608e7066', // https://github.com/libretro-thumbnails/Sega_-_32X/commits
+  'libretro-thumbnails/Sega_-_Dreamcast': 'c8626ea109b685595ea5777867dac1fa7392feaf', // https://github.com/libretro-thumbnails/Sega_-_Dreamcast/commits
   'libretro-thumbnails/Sega_-_Game_Gear': '3064122416ceab894340f35caf1f641713abb51d', // https://github.com/libretro-thumbnails/Sega_-_Game_Gear/commits
   'libretro-thumbnails/Sega_-_Master_System_-_Mark_III': '7561221e20c398326268b5aa9dbe48ba967cf45c', // https://github.com/libretro-thumbnails/Sega_-_Master_System_-_Mark_III/commits
   'libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis': 'fa297306ef552f00b0a5b0f2569a8df883d7aea6', // https://github.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/commits
   'libretro-thumbnails/Sega_-_SG-1000': '3a0e96504581c36cbb8a0d6860099565142ef7fd', // https://github.com/libretro-thumbnails/Sega_-_SG-1000/commits
+  'libretro-thumbnails/Sinclair_-_ZX_Spectrum': '288fefd65b7113b172ad47d9333ba76e590ed357', // https://github.com/libretro-thumbnails/Sinclair_-_ZX_Spectrum/commits
   'libretro-thumbnails/SNK_-_Neo_Geo_Pocket': '3932af2130b55ae1d666632c79fc99515ed5438c', // https://github.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket/commits
   'libretro-thumbnails/SNK_-_Neo_Geo_Pocket_Color': '2b397b7b0a7e0056cfe787599578ddf8724f1859', // https://github.com/libretro-thumbnails/SNK_-_Neo_Geo_Pocket_Color/commits
+  'libretro-thumbnails/The_3DO_Company_-_3DO': '8f64dce089a2f33e34d29b2215cfce0932800619', // https://github.com/libretro-thumbnails/The_3DO_Company_-_3DO/commits
   'libretro/docs': '35b22b41444b7d547d7f239669332c634acb455b', // https://github.com/libretro/docs/commits
   'libretro/retroarch-assets': '2d24ef2972a709f870cc3f73853158fa2376f37d', // https://github.com/libretro/retroarch-assets/commits
   'Mattersons/es-theme-neutral': 'c9b38e7265d680d3da68e96df1bc2ed1cfefb79f', // https://github.com/Mattersons/es-theme-neutral/commits

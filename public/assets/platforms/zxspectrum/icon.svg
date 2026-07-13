@@ -1,0 +1,6 @@
+<svg viewBox="0 0 64 64" width="64" height="64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ZX Spectrum">
+  <rect width="64" height="64" rx="10" fill="#111111"/>
+  <rect x="3" y="3" width="58" height="58" rx="8" fill="none" stroke="#FFD700" stroke-width="2"/>
+  <text x="32" y="30" fill="#FFD700" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="800" text-anchor="middle">ZX</text>
+  <text x="32" y="46" fill="#FFD700" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="700" text-anchor="middle">SPEC</text>
+</svg>

@@ -69,7 +69,8 @@ export function useEmulator() {
   const romObject = useMemo(() => ({ fileContent: romUrl, fileName: rom?.fileName }), [rom, romUrl])
   const bios = preference.emulator.platform[rom.platform].bioses.map(({ fileId, fileName }) => ({
     fileContent: getFileUrl(fileId),
-    fileName,
+    // Flycast expects BIOS under system/dc/
+    fileName: core === 'flycast' && !fileName.includes('/') ? `dc/${fileName}` : fileName,
   }))
   const options: NostalgistOption = useMemo(
     () => ({
@@ -82,8 +83,8 @@ export function useEmulator() {
         // this might be a bug of retroarch's emscripten build, y plus and y minus are swapped
         input_player1_l_y_minus: preference.input.keyboardMapping.input_player1_l_y_plus,
         input_player1_l_y_plus: preference.input.keyboardMapping.input_player1_l_y_minus,
-        rewind_enable: !['mupen64plus_next'].includes(core),
-        run_ahead_enabled: !['mupen64plus_next', 'pcsx_rearmed'].includes(core),
+        rewind_enable: !['mupen64plus_next', 'flycast'].includes(core),
+        run_ahead_enabled: !['mupen64plus_next', 'pcsx_rearmed', 'flycast'].includes(core),
         video_smooth: preference.emulator.videoSmooth,
       },
       retroarchCoreConfig: preference.emulator.core[core],

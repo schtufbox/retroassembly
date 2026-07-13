@@ -1,6 +1,9 @@
 import { a5200Options } from './a5200.ts'
+import { cap32Options } from './cap32.ts'
 import { fbneoOptions } from './fbneo.ts'
 import { fceummOptions } from './fceumm.ts'
+import { flycastOptions } from './flycast.ts'
+import { fuseOptions } from './fuse.ts'
 import { gambatteOptions } from './gambatte.ts'
 import { gearboyOptions } from './gearboy.ts'
 import { genesisPlusGxOptions } from './genesis-plus-gx.ts'
@@ -13,6 +16,7 @@ import { mednafenWswanOptions } from './mednafen-wswan.ts'
 import { mgbaOptions } from './mgba.ts'
 import { mupen64plusNextOptions } from './mupen64plus-next.ts'
 import { nestopiaOptions } from './nestopia.ts'
+import { operaOptions } from './opera.ts'
 import { pcsxRearmedOptions } from './pcsx-rearmed.ts'
 import { picodriveOptions } from './picodrive.ts'
 import { prosystemOptions } from './prosystem.ts'
@@ -24,8 +28,11 @@ import { virtualjaguarOptions } from './virtualjaguar.ts'
 
 export const coreOptionsMap = {
   a5200: a5200Options,
+  cap32: cap32Options,
   fbneo: fbneoOptions,
   fceumm: fceummOptions,
+  flycast: flycastOptions,
+  fuse: fuseOptions,
   gambatte: gambatteOptions,
   gearboy: gearboyOptions,
   genesis_plus_gx: genesisPlusGxOptions,
@@ -38,6 +45,7 @@ export const coreOptionsMap = {
   mgba: mgbaOptions,
   mupen64plus_next: mupen64plusNextOptions,
   nestopia: nestopiaOptions,
+  opera: operaOptions,
   pcsx_rearmed: pcsxRearmedOptions,
   picodrive: picodriveOptions,
   prosystem: prosystemOptions,

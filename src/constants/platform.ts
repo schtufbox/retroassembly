@@ -24,6 +24,34 @@ interface BasePlatform {
 // This link can be used as a reference for the map, but they may be not identical.
 // https://github.com/RetroPie/RetroPie-Setup/blob/master/platforms.cfg
 const basePlatformMap = {
+  // At least one of the system BIOSes is required by the Opera core (any model works).
+  '3do': {
+    bioses: [
+      { md5: 'f47264dd47fe30f73ab3c010015c155b', name: 'panafz1.bin' },
+      { md5: '51f2f43ae2f3508a14d9f56597e2d3ce', name: 'panafz10.bin' },
+      { md5: '1477bda80dc33731a65468c1f5bcbee9', name: 'panafz10-norsa.bin' },
+      { md5: 'a48e6746bd7edec0f40cff078f0bb19f', name: 'panafz10e-anvil.bin' },
+      { md5: 'cf11bbb5a16d7af9875cca9de9a15e09', name: 'panafz10e-anvil-norsa.bin' },
+      { md5: 'a496cfdded3da562759be3561317b605', name: 'panafz1j.bin' },
+      { md5: 'f6c71de7470d16abe4f71b1444883dc8', name: 'panafz1j-norsa.bin' },
+      { md5: '8639fd5e549bd6238cfee79e3e749114', name: 'goldstar.bin' },
+      { md5: '35fa1a1ebaaeea286dc5cd15487c13ea', name: 'sanyotry.bin' },
+      { md5: '8970fc987ab89a7f64da9f8a8c4333ff', name: '3do_arcade_saot.bin' },
+      { md5: 'b8dc97f778a6245c58e064b0312e8281', name: 'panafz1-kanji.bin' },
+      { md5: '428577250f43edc902ea239c50d2240d', name: 'panafz10ja-anvil-kanji.bin' },
+      { md5: 'c23fb5d5e6bb1c240d02cf968972be37', name: 'panafz1j-kanji.bin' },
+    ],
+    cores: ['opera'],
+    displayNameI18nKey: 'platform.3do',
+    fileExtensions: ['.chd', '.cue', '.iso', '.bin'],
+    info: {
+      developer: 'The 3DO Company',
+      manufacturer: 'Panasonic, GoldStar, Sanyo',
+      notesI18nKey: 'platform.3doNote',
+      releaseDate: '1993-10-04T00:00:00-07:00',
+    },
+    libretroName: 'The 3DO Company - 3DO',
+  },
   arcade: {
     bioses: [
       { name: 'bubsys.zip' },
@@ -183,6 +211,35 @@ const basePlatformMap = {
       releaseDate: '1982-08-01T00:00:00-07:00',
     },
     libretroName: 'Coleco - ColecoVision',
+  },
+  // Caprice32 is not in the shared emscripten pack; this fork builds and ships it under public/cores/.
+  // Default model is CPC 6128 (core option cap32_model); ROMs are embedded, no external BIOS required.
+  cpc: {
+    cores: ['cap32'],
+    displayNameI18nKey: 'platform.cpc',
+    fileExtensions: ['.dsk', '.sna', '.tap', '.cdt', '.voc', '.cpr', '.m3u', '.zip'],
+    info: {
+      developer: 'Amstrad',
+      manufacturer: 'Amstrad',
+      notesI18nKey: 'platform.cpcNote',
+      releaseDate: '1984-06-21T00:00:00-07:00',
+    },
+    libretroName: 'Amstrad - CPC',
+  },
+  // Experimental: Flycast WASM from nasomers/flycast-wasm, adapted for Nostalgist.
+  // Interpreter-only — expect very low FPS. BIOS dc_boot.bin is recommended.
+  dreamcast: {
+    bioses: [{ md5: 'e10c53c2f8b90bab96ead2d368858623', name: 'dc_boot.bin' }, { name: 'dc_flash.bin' }],
+    cores: ['flycast'],
+    displayNameI18nKey: 'platform.dreamcast',
+    fileExtensions: ['.chd', '.cdi', '.gdi', '.cue', '.bin', '.zip', '.7z', '.m3u'],
+    info: {
+      developer: 'Sega',
+      manufacturer: 'Sega',
+      notesI18nKey: 'platform.dreamcastNote',
+      releaseDate: '1998-11-27T00:00:00-08:00',
+    },
+    libretroName: 'Sega - Dreamcast',
   },
   famicom: {
     bioses: [{ name: 'nes.pal' }, { name: 'gamegenie.nes' }],
@@ -551,6 +608,20 @@ const basePlatformMap = {
       releaseDate: '2000-12-09T00:00:00-08:00',
     },
     libretroName: 'Bandai - WonderSwan Color',
+  },
+  // Fuse is not in the shared emscripten pack; this fork builds and ships it under public/cores/.
+  // Standard Spectrum models embed their ROMs; optional clone BIOSes go under system/fuse/ if needed.
+  zxspectrum: {
+    cores: ['fuse'],
+    displayNameI18nKey: 'platform.zxSpectrum',
+    fileExtensions: ['.tzx', '.tap', '.z80', '.sna', '.szx', '.rzx', '.scl', '.trd', '.dsk', '.dck', '.zip'],
+    info: {
+      developer: 'Sinclair Research',
+      manufacturer: 'Sinclair Research, Amstrad',
+      notesI18nKey: 'platform.zxSpectrumNote',
+      releaseDate: '1982-04-23T00:00:00-08:00',
+    },
+    libretroName: 'Sinclair - ZX Spectrum',
   },
 } satisfies Record<string, BasePlatform>
 

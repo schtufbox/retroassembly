@@ -2,9 +2,12 @@ export { coreOptionsMap } from './core-options/index.ts'
 
 export const cores = {
   a5200: { displayName: 'a5200' },
+  cap32: { displayName: 'Caprice32' },
   fbneo: { displayName: 'FinalBurn Neo' },
   fceumm: { displayName: 'FCEUmm' },
+  flycast: { displayName: 'Flycast (WASM experimental)' },
   freechaf: { displayName: 'FreeChaF' },
+  fuse: { displayName: 'Fuse' },
   gambatte: { displayName: 'Gambatte' },
   gearboy: { displayName: 'Gearboy' },
   gearcoleco: { displayName: 'Gearcoleco' },
@@ -22,6 +25,7 @@ export const cores = {
   mupen64plus_next: { displayName: 'Mupen64Plus-Next' },
   nestopia: { displayName: 'Nestopia' },
   o2em: { displayName: 'O2EM' },
+  opera: { displayName: 'Opera' },
   pcsx_rearmed: { displayName: 'PCSX ReARMed' },
   picodrive: { displayName: 'PicoDrive' },
   prosystem: { displayName: 'ProSystem' },

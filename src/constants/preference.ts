@@ -123,6 +123,14 @@ export const defaultPreference: ResolvedPreference = {
       fceumm: {
         fceumm_turbo_enable: 'Both',
       },
+      flycast: {
+        reicast_alpha_sorting: 'per-strip (fast, least accurate)',
+        reicast_boot_to_bios: 'disabled',
+        reicast_frame_skipping: 'enabled',
+        reicast_hle_bios: 'disabled',
+        reicast_internal_resolution: '640x480',
+        reicast_threaded_rendering: 'disabled',
+      },
       mame2003_plus: {
         'mame2003-plus_skip_disclaimer': 'enabled',
       },

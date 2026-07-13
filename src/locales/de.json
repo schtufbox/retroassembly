@@ -246,6 +246,8 @@
   "nav.library": "Bibliothek",
   "nav.libraryLower": "Bibliothek",
   "nav.settings": "Einstellungen",
+  "platform.3do": "3DO",
+  "platform.3doNote": "The 3DO Interactive Multiplayer is a fifth-generation home video game console developed by The 3DO Company and manufactured by partners including Panasonic, GoldStar and Sanyo. It was released in North America on October 4, 1993 at a retail price of $699.95, later falling in price as competitors arrived. Built around a 32-bit RISC CPU and a custom graphics architecture, it used CD-ROM software and is remembered for titles such as Road Rash, Gex and the Alone in the Dark ports. Production ended in 1996.",
   "platform.n64": "Nintendo 64",
   "platform.n64Note": "Benannt nach ihrer 64-Bit-CPU, wurde sie im Juni 1996 in Japan, im September 1996 in Nordamerika, im März 1997 in Europa und Australien, im September 1997 in Frankreich und im Dezember 1997 in Brasilien veröffentlicht.\nAls Teil der fünften Konsolengeneration konkurrierte die N64 hauptsächlich mit der PlayStation und dem Sega Saturn. Das Nintendo 64 wurde mit drei Spielen eingeführt: Super Mario 64 und Pilotwings 64, weltweit veröffentlicht; und Saikyo Habu Shogi, nur in Japan veröffentlicht.\nWährend die N64 im November 2001 vom MiniDVD-basierten GameCube abgelöst wurde, blieben N64-Konsolen bis zur Einstellung des Systems Ende 2003 erhältlich.",
   "platform.arcade": "Arcade",
@@ -391,5 +393,11 @@
   "upload.uploadSuccessMessage": "🎉 {{successCount}}/{{totalCount}} ROM(s) wurden hochgeladen.",
   "game.media.edit": "Medien bearbeiten",
   "game.media.boxArt": "Cover",
-  "game.media.media": "Medien"
+  "game.media.media": "Medien",
+  "platform.zxSpectrum": "ZX Spectrum",
+  "platform.zxSpectrumNote": "The ZX Spectrum is an 8-bit home computer released by Sinclair Research in April 1982, with later models produced by Amstrad. Sold in 16K and 48K (and later 128K) configurations, it used a rubber or plastic keyboard, a Z80 CPU and colour graphics that became a hallmark of British and European bedroom coding culture. Software was commonly distributed on cassette tape (.tap, .tzx) as well as disk and snapshot formats. Emulation is provided by the Fuse core.",
+  "platform.cpc": "Amstrad CPC",
+  "platform.cpcNote": "The Amstrad CPC (Colour Personal Computer) is a series of 8-bit home computers from Amstrad, beginning with the CPC464 in 1984. The CPC 6128, released later the same year, shipped with 128 KB of RAM and a built-in 3-inch floppy disk drive, and became one of the most popular models in Europe. Software is commonly distributed as disk images (.dsk), snapshots (.sna) and tape files (.cdt, .tap). Emulation uses Caprice32 with the 6128 model selected by default.",
+  "platform.dreamcast": "Dreamcast",
+  "platform.dreamcastNote": "The Sega Dreamcast is a sixth-generation home video game console released by Sega in Japan on November 27, 1998 and later worldwide. It was Sega's final home console. This fork includes an experimental WebAssembly build of Flycast (from nasomers/flycast-wasm), adapted for Nostalgist. It is interpreter-only and typically runs well below full speed — expect very low FPS on most titles. Upload dc_boot.bin under Settings → Emulating → BIOS. Prefer CHD disc images when possible."
 }

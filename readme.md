@@ -110,6 +110,8 @@ RetroAssembly aims to support a wide range of vintage gaming systems. Emulation 
 
 | System                                  | Available Emulators                                |
 | --------------------------------------- | -------------------------------------------------- |
+| 3DO                                     | `opera`                                            |
+| Amstrad CPC                             | `cap32`                                            |
 | Arcade                                  | `fbneo`, `mame2003_plus`                           |
 | Atari 2600                              | `stella2014`                                       |
 | Atari 5200                              | `a5200`                                            |
@@ -118,6 +120,7 @@ RetroAssembly aims to support a wide range of vintage gaming systems. Emulation 
 | Atari Lynx                              | `mednafen_lynx`                                    |
 | Channel F                               | `freechaf`                                         |
 | ColecoVision                            | `gearcoleco`                                       |
+| Dreamcast (experimental)                | `flycast`                                          |
 | Commodore 64                            | `vice_x64sc`, `vice_x64`, `vice_xscpu64`           |
 | Commodore 128                           | `vice_x128`                                        |
 | Commodore PET                           | `vice_xpet`                                        |
@@ -144,6 +147,7 @@ RetroAssembly aims to support a wide range of vintage gaming systems. Emulation 
 | Virtual Boy                             | `mednafen_vb`                                      |
 | WonderSwan                              | `mednafen_wswan`                                   |
 | WonderSwan Color                        | `mednafen_wswan`                                   |
+| ZX Spectrum                             | `fuse`                                             |
 
 </details>
 
@@ -156,6 +160,10 @@ The Commodore machines are home computers rather than consoles, and are driven b
 - **A Scan button imports ROMs dropped directly onto the storage volume**, for bulk-loading an existing collection without uploading file by file through the browser. It appears next to Add on the library homepage and scans every platform folder under `roms/`.
 - **Commodore support.** The Commodore 64, 128, VIC-20, Plus/4 (and 16) and PET are supported through the VICE cores. No BIOS files are required; the system ROMs are embedded in the cores.
 - **Atari Jaguar via Virtual Jaguar.** Upstream's shared emscripten core pack does not include `virtualjaguar`, so this fork ships the official libretro emscripten build under `public/cores/` and loads it locally. Most titles boot with the core's HLE BIOS; no BIOS dump is required.
+- **3DO via Opera.** Disc images (`.chd`, `.cue`, `.iso`, `.bin`). Upload a console BIOS such as `panafz1.bin` under Settings → Emulating → BIOS.
+- **ZX Spectrum via Fuse.** The Fuse core is not in the shared emscripten pack; this fork builds and ships it under `public/cores/`. Tape/snapshot formats (`.tap`, `.tzx`, `.z80`, …). Keyboard-driven; standard models need no BIOS.
+- **Amstrad CPC via Caprice32.** Likewise self-built and shipped under `public/cores/`. Defaults to the **CPC 6128** model. Disk/tape/snapshot (`.dsk`, `.sna`, `.cdt`, …); embedded ROMs, no external BIOS.
+- **Dreamcast via experimental Flycast WASM.** Uses [nasomers/flycast-wasm](https://github.com/nasomers/flycast-wasm) (EmulatorJS-oriented build adapted for Nostalgist). **Interpreter-only — expect very low FPS.** Upload `dc_boot.bin` as BIOS. Not an official libretro/upstream Flycast web build.
 - **Images publish to the GitHub Container Registry** instead of Docker Hub. See [Self-Host with Docker](#option-2-self-host-with-docker).
 
 ## Contributing
