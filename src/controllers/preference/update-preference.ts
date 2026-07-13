@@ -58,5 +58,6 @@ export async function updatePreference(preference: PreferenceSnippet) {
       .returning(returning)
   }
 
-  return resolveUserPreference(newPreferenceResults[0])
+  const { mergeDiscoveredBioses } = await import('./discover-bioses.ts')
+  return await mergeDiscoveredBioses(resolveUserPreference(newPreferenceResults[0]))
 }

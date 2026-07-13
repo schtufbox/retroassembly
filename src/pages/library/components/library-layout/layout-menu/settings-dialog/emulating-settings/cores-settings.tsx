@@ -16,21 +16,29 @@ export function CoresSettings() {
   const { t } = useTranslation()
   const { isLoading, preference, update } = usePreference()
   const currentPlatform = usePlatform()
-  const [selectedPlatform, setSelectedPlatform] = useState(currentPlatform?.name || preference.ui.platforms?.[0])
+  const enabledPlatforms = preference.ui.platforms.filter((name) => name in platformMap)
+  const [selectedPlatform, setSelectedPlatform] = useState(
+    currentPlatform?.name || enabledPlatforms[0] || Object.keys(platformMap)[0],
+  )
 
-  if (!preference.ui.platforms?.length) {
+  if (!enabledPlatforms.length) {
     return
   }
 
-  const { core } = preference.emulator.platform[selectedPlatform]
+  const activePlatform =
+    selectedPlatform in platformMap && enabledPlatforms.includes(selectedPlatform)
+      ? selectedPlatform
+      : enabledPlatforms[0]
+  const platformConfig = platformMap[activePlatform]
+  const { core } = preference.emulator.platform[activePlatform]
   const coreOptions = coreOptionsMap[core] || []
-  const showReset = platformMap[selectedPlatform].cores.length > 0 && coreOptions.length > 0
+  const showReset = platformConfig.cores.length > 0 && coreOptions.length > 0
 
   async function handleValueChange(value: CoreName) {
     await update({
       emulator: {
         platform: {
-          [selectedPlatform]: {
+          [activePlatform]: {
             core: value,
           },
         },
@@ -45,23 +53,23 @@ export function CoresSettings() {
         {t('common.emulationFor')}
         <div className='ml-2 flex flex-col gap-2'>
           <Select.Root
-            onValueChange={(value: typeof selectedPlatform) => setSelectedPlatform(value)}
+            onValueChange={(value: typeof activePlatform) => setSelectedPlatform(value)}
             size='3'
-            value={selectedPlatform}
+            value={activePlatform}
           >
             <Select.Trigger disabled={isLoading} variant='ghost'>
               <div className='flex items-center gap-2'>
                 <img
-                  alt={t(platformMap[selectedPlatform].displayNameI18nKey)}
+                  alt={t(platformConfig.displayNameI18nKey)}
                   className='size-5 object-contain object-center'
                   loading='lazy'
-                  src={getPlatformIcon(platformMap[selectedPlatform].name)}
+                  src={getPlatformIcon(platformConfig.name)}
                 />
-                {t(platformMap[selectedPlatform].displayNameI18nKey)}
+                {t(platformConfig.displayNameI18nKey)}
               </div>
             </Select.Trigger>
             <Select.Content>
-              {preference.ui.platforms.map((platform) => (
+              {enabledPlatforms.map((platform) => (
                 <Select.Item key={platformMap[platform].name} value={platformMap[platform].name}>
                   <div className='flex items-center gap-2'>
                     <img
@@ -79,9 +87,9 @@ export function CoresSettings() {
       </SettingsTitle>
 
       <Card>
-        <BIOSOptions platform={selectedPlatform} />
+        <BIOSOptions platform={activePlatform} />
 
-        <PlatformShaderSettings platform={selectedPlatform} />
+        <PlatformShaderSettings platform={activePlatform} />
 
         <div className='mt-2'>
           <label className='mt-2 flex items-center gap-2'>
@@ -92,13 +100,13 @@ export function CoresSettings() {
             <Select.Root onValueChange={handleValueChange} size='2' value={core}>
               <Select.Trigger disabled={isLoading} />
               <Select.Content>
-                {platformMap[selectedPlatform].cores.map((core) => (
-                  <Select.Item key={core} value={core}>
+                {platformConfig.cores.map((coreName) => (
+                  <Select.Item key={coreName} value={coreName}>
                     <div className='flex items-center gap-2'>
                       <div className='flex size-4 items-center justify-center'>
                         <span className='icon-[mdi--jigsaw] size-5' />
                       </div>
-                      {coreDisplayNameMap[core]}
+                      {coreDisplayNameMap[coreName]}
                     </div>
                   </Select.Item>
                 ))}
@@ -114,7 +122,7 @@ export function CoresSettings() {
                 preference={{
                   emulator: {
                     core: { [core]: null },
-                    platform: { [selectedPlatform]: { core: null } },
+                    platform: { [activePlatform]: { core: null } },
                   },
                 }}
               >

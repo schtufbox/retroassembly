@@ -215,5 +215,19 @@ export function resolveUserPreference(rawUserPreference: null | PreferenceSnippe
     delete userPreference.ui.platforms
   }
 
+  // Drop removed platforms (e.g. dreamcast/gamecube/3do) so UI never reads platformMap[undefined].
+  if (Array.isArray(userPreference.ui?.platforms)) {
+    userPreference.ui.platforms = userPreference.ui.platforms.filter(
+      (name): name is PlatformName => typeof name === 'string' && name in platformMap,
+    )
+  }
+  if (userPreference.emulator?.platform && typeof userPreference.emulator.platform === 'object') {
+    for (const name of Object.keys(userPreference.emulator.platform)) {
+      if (!(name in platformMap)) {
+        delete userPreference.emulator.platform[name as PlatformName]
+      }
+    }
+  }
+
   return mergePreference(fallbackPreference, userPreference) as Preference
 }
