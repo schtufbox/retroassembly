@@ -21,6 +21,8 @@ RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store \
 RUN node --run=build
 
 FROM ${PROD_IMAGE} AS deps-production
+# better-sqlite3 needs a native build when prebuilt binaries are missing (common on Alpine/musl).
+RUN apk add --no-cache python3 make g++
 RUN npm i -g pnpm
 WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
