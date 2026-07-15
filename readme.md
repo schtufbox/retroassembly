@@ -6,7 +6,7 @@
 <p align="center">
   <a href="https://github.com/arianrhodsandlot/retroassembly"><img src="https://img.shields.io/github/stars/arianrhodsandlot/retroassembly" alt="GitHub"></a>
   <a href="https://discord.gg/gwaKRAYG6t"><img src="https://img.shields.io/discord/1129062038543548496?logo=discord" alt="Discord"></a>
-  <a href="https://github.com/schtufbox/retroassembly/pkgs/container/retroassembly"><img src="https://img.shields.io/badge/ghcr.io-retroassembly-blue?logo=docker&logoColor=white" alt="GitHub Container Registry"></a>
+  <a href="https://github.com/LaughingInPurgatory/retroassembly/pkgs/container/retroassembly"><img src="https://img.shields.io/badge/ghcr.io-retroassembly-blue?logo=docker&logoColor=white" alt="GitHub Container Registry"></a>
 </p>
 
 <p align="center">
@@ -28,7 +28,7 @@
 RetroAssembly is the personal retro game collection cabinet in your browser.
 
 > [!NOTE]
-> This is a fork of [arianrhodsandlot/retroassembly](https://github.com/arianrhodsandlot/retroassembly). See [Differences From Upstream](#differences-from-upstream) for what changed here. Container images are published only for **this** fork at `ghcr.io/schtufbox/retroassembly`.
+> This is a fork of [arianrhodsandlot/retroassembly](https://github.com/arianrhodsandlot/retroassembly). See [Differences From Upstream](#differences-from-upstream) for what changed here. Container images are published only for **this** fork at `ghcr.io/LaughingInPurgatory/retroassembly`.
 
 ## Features
 
@@ -72,7 +72,7 @@ You have two options to get started with RetroAssembly:
 
 > <small>For advanced users who want full control. Perfect if you prefer to host your own instance, have privacy concerns, or want to customize the deployment.</small>
 
-This fork publishes its image to the [GitHub Container Registry](https://github.com/schtufbox/retroassembly/pkgs/container/retroassembly) rather than to Docker Hub.
+This fork publishes its image to the [GitHub Container Registry](https://github.com/LaughingInPurgatory/retroassembly/pkgs/container/retroassembly) rather than to Docker Hub.
 
 ```sh
 docker run -d \
@@ -80,7 +80,7 @@ docker run -d \
   -p 8000:8000 \
   -v ./data:/app/data \
   --restart unless-stopped \
-  ghcr.io/schtufbox/retroassembly:latest
+  ghcr.io/LaughingInPurgatory/retroassembly:latest
 ```
 
 Then open <http://localhost:8000>.
@@ -90,7 +90,7 @@ Or with Docker Compose:
 ```yaml
 services:
   retroassembly:
-    image: ghcr.io/schtufbox/retroassembly:latest
+    image: ghcr.io/LaughingInPurgatory/retroassembly:latest
     ports: [8000:8000]
     volumes: [./data:/app/data]
     restart: unless-stopped
@@ -171,7 +171,7 @@ Loading a Commodore game from a disk image may require typing a command such as 
 - **Atari Jaguar via Virtual Jaguar.** Not in the shared emscripten core pack; this fork ships the build under `public/cores/` and loads it locally. Most titles use the core's HLE BIOS.
 - **ZX Spectrum via Fuse.** Self-built and shipped under `public/cores/`. Tape/snapshot formats (`.tap`, `.tzx`, `.z80`, …). Keyboard passthrough enabled.
 - **Amstrad CPC via Caprice32.** Self-built under `public/cores/`. Defaults to the **CPC 6128** model. Disk/tape/snapshot (`.dsk`, `.sna`, `.cdt`, …). Keyboard passthrough enabled.
-- **Images publish to the GitHub Container Registry** (`ghcr.io/schtufbox/retroassembly`) instead of Docker Hub.
+- **Images publish to the GitHub Container Registry** (`ghcr.io/LaughingInPurgatory/retroassembly`) instead of Docker Hub.
 
 ## Development (this fork)
 
@@ -192,7 +192,7 @@ git push origin v6.yymmdd.HHMM   # triggers Build and Push Docker Image → GHCR
 
 ## Contributing
 
-See [Contributing](docs/contributing.md). For this fork, open PRs against [schtufbox/retroassembly](https://github.com/schtufbox/retroassembly).
+See [Contributing](docs/contributing.md). For this fork, open PRs against [LaughingInPurgatory/retroassembly](https://github.com/LaughingInPurgatory/retroassembly).
 
 ## Sponsorship
 
