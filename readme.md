@@ -28,7 +28,7 @@
 RetroAssembly is the personal retro game collection cabinet in your browser.
 
 > [!NOTE]
-> This is a fork of [arianrhodsandlot/retroassembly](https://github.com/arianrhodsandlot/retroassembly). See [Differences From Upstream](#differences-from-upstream) for what changed here. Container images are published only for **this** fork at `ghcr.io/LaughingInPurgatory/retroassembly`.
+> This is a fork of [arianrhodsandlot/retroassembly](https://github.com/arianrhodsandlot/retroassembly). See [Differences From Upstream](#differences-from-upstream) for what changed here. Container images are published only for **this** fork at `ghcr.io/laughinginpurgatory/retroassembly`.
 
 ## Features
 
@@ -80,7 +80,7 @@ docker run -d \
   -p 8000:8000 \
   -v ./data:/app/data \
   --restart unless-stopped \
-  ghcr.io/LaughingInPurgatory/retroassembly:latest
+  ghcr.io/laughinginpurgatory/retroassembly:latest
 ```
 
 Then open <http://localhost:8000>.
@@ -90,7 +90,7 @@ Or with Docker Compose:
 ```yaml
 services:
   retroassembly:
-    image: ghcr.io/LaughingInPurgatory/retroassembly:latest
+    image: ghcr.io/laughinginpurgatory/retroassembly:latest
     ports: [8000:8000]
     volumes: [./data:/app/data]
     restart: unless-stopped
@@ -171,7 +171,7 @@ Loading a Commodore game from a disk image may require typing a command such as 
 - **Atari Jaguar via Virtual Jaguar.** Not in the shared emscripten core pack; this fork ships the build under `public/cores/` and loads it locally. Most titles use the core's HLE BIOS.
 - **ZX Spectrum via Fuse.** Self-built and shipped under `public/cores/`. Tape/snapshot formats (`.tap`, `.tzx`, `.z80`, …). Keyboard passthrough enabled.
 - **Amstrad CPC via Caprice32.** Self-built under `public/cores/`. Defaults to the **CPC 6128** model. Disk/tape/snapshot (`.dsk`, `.sna`, `.cdt`, …). Keyboard passthrough enabled.
-- **Images publish to the GitHub Container Registry** (`ghcr.io/LaughingInPurgatory/retroassembly`) instead of Docker Hub.
+- **Images publish to the GitHub Container Registry** (`ghcr.io/laughinginpurgatory/retroassembly`) instead of Docker Hub.
 
 ## Development (this fork)
 

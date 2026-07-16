@@ -13,7 +13,7 @@ Browser-based retro gaming platform with dual-runtime architecture (Node.js + Cl
 - `origin` → `https://github.com/LaughingInPurgatory/retroassembly.git` (fetch + push)
 - `upstream` → `https://github.com/arianrhodsandlot/retroassembly.git` (fetch only)
 
-Container images: `ghcr.io/LaughingInPurgatory/retroassembly` (tag push → workflow `Build and Push Docker Image`).
+Container images: `ghcr.io/laughinginpurgatory/retroassembly` (tag push → workflow `Build and Push Docker Image`).
 
 ## Key Directories
 
@@ -76,7 +76,7 @@ Escape still opens the in-game overlay. Gamepad button maps are unchanged.
 
 1. Commit + `git push origin <branch>`
 2. Tag `v6.yymmdd.HHMM` (UTC), `git push origin <tag>`
-3. Docker workflow publishes `ghcr.io/LaughingInPurgatory/retroassembly:<tag>` and `:latest`
+3. Docker workflow publishes `ghcr.io/laughinginpurgatory/retroassembly:<tag>` and `:latest`
 4. Optional: `gh release create` on `LaughingInPurgatory/retroassembly`
 
 ## Code Style
