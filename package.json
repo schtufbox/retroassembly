@@ -30,7 +30,7 @@
   "devDependencies": {
     "@arianrhodsandlot/vite-plus-config": "1.3.0",
     "@cloudflare/vite-plugin": "1.45.0",
-    "@hono/node-server": "2.0.9",
+    "@hono/node-server": "2.0.10",
     "@hono/vite-dev-server": "0.26.1",
     "@hono/zod-validator": "0.9.0",
     "@iconify-json/logos": "1.2.11",
@@ -96,7 +96,7 @@
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-dropzone": "17.0.0",
-    "react-i18next": "17.0.9",
+    "react-i18next": "17.0.10",
     "react-router": "8.2.0",
     "react-router-hono-fullstack-template": "github:cloudflare/react-router-hono-fullstack-template",
     "smooth-scroll-into-view-if-needed": "2.0.2",
@@ -119,7 +119,7 @@
   "engines": {
     "node": ">=26.5.0"
   },
-  "packageManager": "pnpm@11.13.0",
+  "packageManager": "pnpm@11.13.1",
   "hintConfig": {
     "extends": [
       "development"
