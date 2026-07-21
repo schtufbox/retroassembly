@@ -81,8 +81,8 @@ export default function LibraryLayout({ children }: Readonly<PropsWithChildren>)
 
         <LayoutMain>{children}</LayoutMain>
 
-        <div className='top-0 right-0 left-80 z-11 hidden h-4 bg-(--accent-9) lg:fixed lg:block' />
-        <div className='inset-y-0 right-0 z-11 hidden h-full w-4 bg-(--accent-9) lg:fixed lg:block' />
+        <div className='top-0 right-0 left-80 z-11 hidden h-4 bg-(--color-background) lg:fixed lg:block' />
+        <div className='inset-y-0 right-0 z-11 hidden h-full w-4 bg-(--color-background) lg:fixed lg:block' />
         <StatusBar />
       </div>
 

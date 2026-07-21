@@ -6,8 +6,8 @@ import { useInputMapping } from '../../hooks/use-input-mapping.ts'
 import { usePreference } from '../../hooks/use-preference.ts'
 import { LayoutMenu } from './layout-menu/layout-menu.tsx'
 
-const rightButtonIcon = <span className='icon-[mdi--gamepad-circle-right] text-white' />
-const downButtonIcon = <span className='icon-[mdi--gamepad-circle-down] text-white' />
+const rightButtonIcon = <span className='icon-[mdi--gamepad-circle-right] text-(--color-text)' />
+const downButtonIcon = <span className='icon-[mdi--gamepad-circle-down] text-(--color-text)' />
 
 export function StatusBar() {
   const { t } = useTranslation()
@@ -24,15 +24,15 @@ export function StatusBar() {
   ]
 
   return (
-    <div className='fixed right-0 bottom-0 left-80 z-11 hidden h-12 items-center justify-end gap-4 bg-(--accent-9) pr-8 text-sm font-medium text-white/80 lg:flex'>
+    <div className='fixed right-0 bottom-0 left-80 z-11 hidden h-12 items-center justify-end gap-4 bg-(--color-background) pr-8 text-sm font-medium text-(--color-text)/80 lg:flex'>
       {connected ? (
         <>
           <span className='flex items-center gap-2'>
-            <span className='icon-[mdi--microsoft-xbox-gamepad] text-white' />
+            <span className='icon-[mdi--microsoft-xbox-gamepad] text-(--color-text)' />
             {t('common.connected')}
           </span>
           <span className='flex items-center gap-2'>
-            <span className='icon-[mdi--gamepad] text-white' />
+            <span className='icon-[mdi--gamepad] text-(--color-text)' />
             {t('common.move')}
           </span>
           <span className='flex items-center gap-2'>
