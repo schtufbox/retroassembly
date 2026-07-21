@@ -1,5 +1,9 @@
 .light,
 .light-theme,
 .radix-themes {
-  --color-background: #fff;
+  --color-background: #f2f2fb;
+  --color-overlay: rgba(15, 16, 33, 0.35);
+  --color-panel-solid: #fff;
+  --color-panel-translucent: rgba(255, 255, 255, 0.7);
+  --color-surface: rgba(255, 255, 255, 0.75);
 }

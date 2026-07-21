@@ -2,13 +2,13 @@
 .light,
 .light-theme,
 .radix-themes {
-  --color-text: black;
+  --color-text: #1a1c3a;
 }
 
 .dark,
 .dark-theme,
 :is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
-  --color-text: #eee;
+  --color-text: #e7e9ff;
 }
 
 .rt-Kbd {

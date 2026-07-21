@@ -40,6 +40,23 @@ a:focus {
   outline: none;
 }
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-9) var(--gray-a3);
+}
+
+.dark body {
+  background:
+    radial-gradient(
+      1200px 800px at 15% -10%,
+      color-mix(in oklab, var(--accent-9) 15%, transparent) 0%,
+      transparent 60%
+    ),
+    radial-gradient(1000px 700px at 110% 10%, color-mix(in oklab, teal 10%, transparent) 0%, transparent 55%),
+    linear-gradient(160deg, #0f1021, #1a1c3a);
+  background-attachment: fixed;
+}
+
 .radix-themes {
   --cursor-button: pointer;
   --cursor-checkbox: pointer;
